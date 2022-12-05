@@ -51,7 +51,8 @@ extension BaseViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 
 	func openBar() {
-		print("openBar")
+		let barVC = BarChartController()
+		self.present(barVC, animated: true)
 	}
 }
 

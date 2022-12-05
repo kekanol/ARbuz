@@ -11,11 +11,16 @@ import ARKit
 
 class BarChartController: UIViewController {
 
-	@IBOutlet private var sceneView: ARSCNView!
+	private var sceneView: ARSCNView!
 
 	private let configuration = ARWorldTrackingConfiguration()
 
 	var planes = [Plane]()
+
+	override func loadView() {
+		sceneView = ARSCNView()
+		view = sceneView
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
