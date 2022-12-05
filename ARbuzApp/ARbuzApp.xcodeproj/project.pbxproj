@@ -18,6 +18,7 @@
 		222B18AA293DE91900ECD3ED /* 2DChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* 2DChartViewController.swift */; };
 		222B18AD293DE9F300ECD3ED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18AC293DE9F300ECD3ED /* Network.swift */; };
 		222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */; };
+		DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		222B18A9293DE91900ECD3ED /* 2DChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2DChartViewController.swift; sourceTree = "<group>"; };
 		222B18AC293DE9F300ECD3ED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewController.swift; sourceTree = "<group>"; };
+		DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		DECBD493293DEE9200EA1DFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,7 @@
 		02E0F400293DE34100F418F3 /* ARbuzApp */ = {
 			isa = PBXGroup;
 			children = (
+				DECBD493293DEE9200EA1DFC /* Info.plist */,
 				02E0F401293DE34100F418F3 /* AppDelegate.swift */,
 				02E0F403293DE34100F418F3 /* art.scnassets */,
 				02E0F405293DE34100F418F3 /* ViewController.swift */,
@@ -100,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				222B18AC293DE9F300ECD3ED /* Network.swift */,
+				DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */,
 			);
 			path = Igor;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */,
 				222B18AA293DE91900ECD3ED /* 2DChartViewController.swift in Sources */,
 				02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */,
+				DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -367,6 +374,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
