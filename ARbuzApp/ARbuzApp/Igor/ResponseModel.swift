@@ -12,7 +12,7 @@ struct ResponseModel: Codable {
 	let ticker: String
 	let queryCount, resultsCount: Int
 	let adjusted: Bool
-	var results: [Result]
+	let results: [Result]
 	let status, requestID: String
 	let count: Int
 
