@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Структура для работы с сетью
 struct Network {
 
 	func request(for company: Company,
