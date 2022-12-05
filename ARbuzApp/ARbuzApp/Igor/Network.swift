@@ -7,19 +7,11 @@
 
 import Foundation
 
-enum Company: String {
-	case Apple = "AAPL"
-	case Microsoft = "MSFT"
-	case AMD = "AMD"
-	case Alibaba = "BABA"
-}
-
-
 struct Network {
 
 	func request(for company: Company,
 				 completion: @escaping (ResponseModel) -> Void) {
-		request(for: company.rawValue, completion: completion)
+		request(for: company.ticket, completion: completion)
 	}
 }
 
