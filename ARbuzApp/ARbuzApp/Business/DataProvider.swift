@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias ChartDataBlock = (ChartData) -> Void
 
@@ -36,8 +37,15 @@ extension DataProvider: DataProviderProtocol {
 private extension DataProvider {
 
 	func timerTick(_ timer: Timer) {
-		let data = Double.random(in: 0...1)
-		print("\(data)")
+		let names = ["Apple", "Microsoft", "Netflix"]
+		let colors = [UIColor.red, UIColor.blue, UIColor.yellow]
+		let points = names.map { name in
+			ChartPoint(name: name,
+					   value: Double.random(in: 0...1),
+					   money: "$ 100 500",
+					   color: colors.randomElement() ?? UIColor.lightGray)
+		}
+		storage.points = points
 		completion?(storage)
 	}
 }
