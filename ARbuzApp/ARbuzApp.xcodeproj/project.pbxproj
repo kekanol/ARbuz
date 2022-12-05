@@ -13,6 +13,7 @@
 		02E0F409293DE34100F418F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E0F407293DE34100F418F3 /* Main.storyboard */; };
 		02E0F40B293DE34200F418F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E0F40A293DE34200F418F3 /* Assets.xcassets */; };
 		02E0F40E293DE34200F418F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */; };
+		02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F419293DE85F00F418F3 /* BarChartController.swift */; };
 		222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A2293DE58A00ECD3ED /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		02E0F408293DE34100F418F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		02E0F40A293DE34200F418F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02E0F40D293DE34200F418F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		02E0F419293DE85F00F418F3 /* BarChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartController.swift; sourceTree = "<group>"; };
 		222B18A2293DE58A00ECD3ED /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 				02E0F403293DE34100F418F3 /* art.scnassets */,
 				02E0F405293DE34100F418F3 /* ViewController.swift */,
 				222B18A2293DE58A00ECD3ED /* BaseViewController.swift */,
+				02E0F418293DE84F00F418F3 /* Damir */,
 				222B18A7293DE6AF00ECD3ED /* Network */,
 				222B18A6293DE69F00ECD3ED /* 2DChart */,
 				222B18A5293DE69700ECD3ED /* PieChart */,
@@ -70,6 +73,14 @@
 				02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */,
 			);
 			path = ARbuzApp;
+			sourceTree = "<group>";
+		};
+		02E0F418293DE84F00F418F3 /* Damir */ = {
+			isa = PBXGroup;
+			children = (
+				02E0F419293DE85F00F418F3 /* BarChartController.swift */,
+			);
+			path = Damir;
 			sourceTree = "<group>";
 		};
 		222B18A4293DE68D00ECD3ED /* BarChart */ = {
@@ -174,6 +185,7 @@
 			files = (
 				02E0F406293DE34100F418F3 /* ViewController.swift in Sources */,
 				02E0F402293DE34100F418F3 /* AppDelegate.swift in Sources */,
+				02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
