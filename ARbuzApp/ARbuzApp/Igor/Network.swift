@@ -20,7 +20,7 @@ struct Network {
 				if let data = data,
 				   let responce = try? JSONDecoder().decode(ResponseModel.self, from: data){
 					DispatchQueue.main.async {
-						 completion(responce)
+						completion(responce)
 					}
 				}
 			}
