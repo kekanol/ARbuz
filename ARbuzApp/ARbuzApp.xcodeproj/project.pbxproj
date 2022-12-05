@@ -15,6 +15,7 @@
 		02E0F40E293DE34200F418F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */; };
 		02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F419293DE85F00F418F3 /* BarChartController.swift */; };
 		02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41B293DE8CA00F418F3 /* Plane.swift */; };
+		02E0F41E293E069700F418F3 /* BarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41D293E069700F418F3 /* BarBuilder.swift */; };
 		222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A2293DE58A00ECD3ED /* BaseViewController.swift */; };
 		222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* GraphViewController.swift */; };
 		222B18AD293DE9F300ECD3ED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18AC293DE9F300ECD3ED /* Network.swift */; };
@@ -34,6 +35,7 @@
 		02E0F40D293DE34200F418F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02E0F419293DE85F00F418F3 /* BarChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartController.swift; sourceTree = "<group>"; };
 		02E0F41B293DE8CA00F418F3 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		02E0F41D293E069700F418F3 /* BarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBuilder.swift; sourceTree = "<group>"; };
 		222B18A2293DE58A00ECD3ED /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		222B18A9293DE91900ECD3ED /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		222B18AC293DE9F300ECD3ED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				02E0F419293DE85F00F418F3 /* BarChartController.swift */,
+				02E0F41D293E069700F418F3 /* BarBuilder.swift */,
 				02E0F41B293DE8CA00F418F3 /* Plane.swift */,
 			);
 			path = Damir;
@@ -218,6 +221,7 @@
 				4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */,
 				DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
+				02E0F41E293E069700F418F3 /* BarBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,9 +366,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S2BZUU4LX5;
+				DEVELOPMENT_TEAM = APAW5P9QGC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -381,8 +386,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp3;
+				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -394,9 +400,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S2BZUU4LX5;
+				DEVELOPMENT_TEAM = APAW5P9QGC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -413,8 +420,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp3;
+				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

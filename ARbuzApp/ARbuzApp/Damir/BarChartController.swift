@@ -28,60 +28,14 @@ class BarChartController: UIViewController {
 	    sceneView.session.delegate = self
 		sceneView.delegate = self
 
-		let colorTexture = UIColor.red
-
 		// Создаем сцену
 		let scene = SCNScene()
 
-		sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+		sceneView.debugOptions = [.showWorldOrigin, .showFeaturePoints]
 		configuration.planeDetection = [.horizontal, .vertical]
 
-//		addNewCubeModel(
-//			size: 0.2,
-//			position: SCNVector3(0, 0, -1.0),
-//			texture: colorTexture,
-//			scene: scene
-//		)
-
-//        addNewCubeModel(
-//            size: 0.2,
-//            position: SCNVector3(0, 0, -1.0),
-//            texture: imageTexture,
-//            scene: scene
-//        )
-
-//        addNewTextModel(
-//            text: "Mad Box",
-//            scale: SCNVector3(0.005, 0.005, 0.005),
-//            position: SCNVector3(-0.2, 0.3, -1.0),
-//            depth: 3.0,
-//            color: .orange,
-//            scene: scene
-//        )
-//
-//        addNewModel(
-//            withPath: "art.scnassets/dance/dance.dae",
-//            scale: SCNVector3(0.07, 0.07, 0.07),
-//            position: SCNVector3(-0.25, -0.1, -1.0),
-//            scene: scene
-//        )
-//
-//        addNewModel(
-//            withPath: "art.scnassets/dance/dance.dae",
-//            scale: SCNVector3(0.07, 0.07, 0.07),
-//            position: SCNVector3(0.25, -0.1, -1.0),
-//            scene: scene
-//        )
-//
-//        addNewModel(
-//            withPath: "art.scnassets/dance/dance.dae",
-//            scale: SCNVector3(0.07, 0.07, 0.07),
-//            position: SCNVector3(0, -0.1, -1.5),
-//            scene: scene
-//        )
-
 		//addFloor(to: scene)
-		//configureTapGesture()
+		configureTapGesture()
 		sceneView.scene = scene
 	}
 
@@ -95,7 +49,43 @@ class BarChartController: UIViewController {
 		sceneView.session.pause()
 	}
 
-	private func getCubeNode(size: CGFloat, position: SCNVector3, texture: Any?) -> SCNNode {
+}
+
+// MARK: - Private methods
+
+private extension BarChartController {
+
+	func configureTapGesture() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(spawnChart))
+		sceneView.addGestureRecognizer(tapGestureRecognizer)
+	}
+
+	@objc func spawnChart(tapGesture: UITapGestureRecognizer) {
+		guard let sceneView = tapGesture.view as? ARSCNView else { return }
+		let tapLocation = tapGesture.location(in: sceneView)
+		// Вектор к поверхности, если он пересекает какую-то поверхность, то попадает в результирующее значение
+		guard let hitTestResult = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent).first else { return }
+
+		let chartData = ChartData(points: [ChartPoint(name: "APPL", value: 0.7, money: "100", color: .black),
+										   ChartPoint(name: "SBER", value: 1, money: "10000000", color: .green),
+										   ChartPoint(name: "AMAZ", value: 0.1, money: "1", color: .blue)])
+
+		createChart(chartData: chartData, hitTestResult: hitTestResult)
+	}
+
+	func createCube(_ hitTestResult: ARHitTestResult) {
+		let position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
+								  hitTestResult.worldTransform.columns.3.y + 0.05,
+								  hitTestResult.worldTransform.columns.3.z)
+
+		let box = getCubeNode(size: 0.2,
+							  position: position,
+							  texture: UIColor.white)
+
+		sceneView.scene.rootNode.addChildNode(box)
+	}
+
+	func getCubeNode(size: CGFloat, position: SCNVector3, texture: Any?) -> SCNNode {
 		// Создаем геометрию - каркас
 		let boxGeometry = SCNBox(
 			width: size,
@@ -116,12 +106,7 @@ class BarChartController: UIViewController {
 		return boxNode
 	}
 
-	private func addNewCubeModel(size: CGFloat, position: SCNVector3, texture: Any?, scene: SCNScene) {
-		let node = getCubeNode(size: size, position: position, texture: texture)
-		scene.rootNode.addChildNode(node)
-	}
-
-	private func addNewTextModel(text: String, scale: SCNVector3, position: SCNVector3, depth: CGFloat, color: UIColor, scene: SCNScene) {
+	func addNewTextModel(text: String, scale: SCNVector3, position: SCNVector3, depth: CGFloat, color: UIColor, scene: SCNScene) {
 		let textGeometry = SCNText(string: text, extrusionDepth: depth)
 
 		let textMaterial = SCNMaterial()
@@ -135,21 +120,10 @@ class BarChartController: UIViewController {
 		scene.rootNode.addChildNode(textNode)
 	}
 
-	private func addNewModel(withPath: String, scale: SCNVector3, position: SCNVector3, scene: SCNScene) {
-		let node = SCNNode()
-
-		guard let loadedScene = SCNScene(named: withPath) else {
-			return
-		}
-
-		loadedScene.rootNode.childNodes.forEach {
-			node.addChildNode($0 as SCNNode)
-		}
-
-		node.scale = scale
-		node.position = position
-
-		scene.rootNode.addChildNode(node)
+	func createChart(chartData: ChartData, hitTestResult: ARHitTestResult) {
+		let builder = BarBuilder()
+		let barNode = builder.build(with: chartData, at: hitTestResult)
+		sceneView.scene.rootNode.addChildNode(barNode)
 	}
 
 }
@@ -157,10 +131,7 @@ class BarChartController: UIViewController {
 extension BarChartController: ARSCNViewDelegate {
 
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-		guard let planeAnchor = anchor as? ARPlaneAnchor else {
-			return
-		}
-
+		guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
 		let plane = Plane(anchor: planeAnchor)
 
 		planes.append(plane)
@@ -168,15 +139,10 @@ extension BarChartController: ARSCNViewDelegate {
 	}
 
 	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-		let plane = planes.filter {
-			$0.anchor.identifier == anchor.identifier
-		}.first
+		let plane = planes.filter { $0.anchor.identifier == anchor.identifier }.first
+		guard let uPlane = plane, let arAnchor = anchor as? ARPlaneAnchor else { return }
 
-		guard let uPlane = plane else {
-			return
-		}
-
-		uPlane.update(anchor: anchor as! ARPlaneAnchor)
+		uPlane.update(anchor: arAnchor)
 	}
 
 }
