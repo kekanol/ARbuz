@@ -16,7 +16,7 @@ protocol DataProviderProtocol {
 
 final class DataProvider {
 
-	// TODO: Use Network loader
+	private let network = Network()
 
 	// TODO: storage
 	private var storage = ChartData(points: [])
@@ -30,6 +30,9 @@ extension DataProvider: DataProviderProtocol {
 
 	func fetchData(completion: @escaping ChartDataBlock) {
 		self.completion = completion
+		network.request(for: .Apple) { model in
+			print("network model: \(model)")
+		}
 		timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: timerTick)
 	}
 }
