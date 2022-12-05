@@ -121,9 +121,10 @@ private extension BarChartController {
 	}
 
 	func createChart(chartData: ChartData, hitTestResult: ARHitTestResult) {
-		let builder = BarBuilder(chartData: chartData)
-		let barNode = builder.build(at: hitTestResult)
-		sceneView.scene.rootNode.addChildNode(barNode)
+		let builder = BarBuilder(chartData: chartData, hitTestResult: hitTestResult)
+		builder
+			.setupBars()
+			.build(at: sceneView.scene)
 	}
 
 }
