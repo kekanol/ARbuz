@@ -29,7 +29,7 @@ final class BarBuilder {
 		let coreNode = SCNNode()
 		coreNode.position = position
 
-		for (index, point) in chartData.points.enumerated() {
+		for (index, point) in chartData.bars.enumerated() {
 			let box = SCNBox(width: width, height: point.value, length: width, chamferRadius: chamferRadius)
 			box.firstMaterial?.diffuse.contents = point.color
 			box.name = point.name
