@@ -16,6 +16,9 @@
 		02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F419293DE85F00F418F3 /* BarChartController.swift */; };
 		02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41B293DE8CA00F418F3 /* Plane.swift */; };
 		222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A2293DE58A00ECD3ED /* BaseViewController.swift */; };
+		222B18AA293DE91900ECD3ED /* 2DChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* 2DChartViewController.swift */; };
+		222B18AD293DE9F300ECD3ED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18AC293DE9F300ECD3ED /* Network.swift */; };
+		222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		02E0F419293DE85F00F418F3 /* BarChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartController.swift; sourceTree = "<group>"; };
 		02E0F41B293DE8CA00F418F3 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		222B18A2293DE58A00ECD3ED /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		222B18A9293DE91900ECD3ED /* 2DChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 2DChartViewController.swift; sourceTree = "<group>"; };
+		222B18AC293DE9F300ECD3ED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,11 +71,10 @@
 				02E0F403293DE34100F418F3 /* art.scnassets */,
 				02E0F405293DE34100F418F3 /* ViewController.swift */,
 				222B18A2293DE58A00ECD3ED /* BaseViewController.swift */,
+				222B18AE293DE9F800ECD3ED /* Kirill */,
+				222B18AB293DE9D800ECD3ED /* Igor */,
+				222B18A8293DE8D900ECD3ED /* Kostya */,
 				02E0F418293DE84F00F418F3 /* Damir */,
-				222B18A7293DE6AF00ECD3ED /* Network */,
-				222B18A6293DE69F00ECD3ED /* 2DChart */,
-				222B18A5293DE69700ECD3ED /* PieChart */,
-				222B18A4293DE68D00ECD3ED /* BarChart */,
 				02E0F407293DE34100F418F3 /* Main.storyboard */,
 				02E0F40A293DE34200F418F3 /* Assets.xcassets */,
 				02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */,
@@ -86,32 +91,28 @@
 			path = Damir;
 			sourceTree = "<group>";
 		};
-		222B18A4293DE68D00ECD3ED /* BarChart */ = {
+		222B18A8293DE8D900ECD3ED /* Kostya */ = {
 			isa = PBXGroup;
 			children = (
+				222B18A9293DE91900ECD3ED /* 2DChartViewController.swift */,
 			);
-			path = BarChart;
+			path = Kostya;
 			sourceTree = "<group>";
 		};
-		222B18A5293DE69700ECD3ED /* PieChart */ = {
+		222B18AB293DE9D800ECD3ED /* Igor */ = {
 			isa = PBXGroup;
 			children = (
+				222B18AC293DE9F300ECD3ED /* Network.swift */,
 			);
-			path = PieChart;
+			path = Igor;
 			sourceTree = "<group>";
 		};
-		222B18A6293DE69F00ECD3ED /* 2DChart */ = {
+		222B18AE293DE9F800ECD3ED /* Kirill */ = {
 			isa = PBXGroup;
 			children = (
+				222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */,
 			);
-			path = 2DChart;
-			sourceTree = "<group>";
-		};
-		222B18A7293DE6AF00ECD3ED /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
+			path = Kirill;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +190,9 @@
 				02E0F406293DE34100F418F3 /* ViewController.swift in Sources */,
 				02E0F402293DE34100F418F3 /* AppDelegate.swift in Sources */,
 				02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */,
+				222B18AD293DE9F300ECD3ED /* Network.swift in Sources */,
+				222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */,
+				222B18AA293DE91900ECD3ED /* 2DChartViewController.swift in Sources */,
 				02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
 			);
