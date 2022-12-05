@@ -25,9 +25,10 @@ private extension Network {
 			let request = URLRequest(url: url)
 			let task = session.dataTask(with: request) { data, responce, error in
 				if let data = data,
-				   let responce = try? JSONDecoder().decode(ResponseModel.self, from: data){
+				   let response = try? JSONDecoder().decode(ResponseModel.self, from: data) {
 					DispatchQueue.main.async {
-						completion(responce)
+						completion(response)
+						History.shared.save(responseModel: response)
 					}
 				}
 			}

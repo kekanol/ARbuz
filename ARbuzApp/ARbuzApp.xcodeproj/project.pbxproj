@@ -22,6 +22,7 @@
 		4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD7293DFCC7004F6923 /* DataModels.swift */; };
 		4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD8293DFCC7004F6923 /* DataProvider.swift */; };
 		DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */; };
+		DECBD495293DFECF00EA1DFC /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD494293DFECF00EA1DFC /* History.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		4F526BD8293DFCC7004F6923 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		DECBD493293DEE9200EA1DFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DECBD494293DFECF00EA1DFC /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				222B18AC293DE9F300ECD3ED /* Network.swift */,
+				DECBD494293DFECF00EA1DFC /* History.swift */,
 				DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */,
 			);
 			path = Igor;
@@ -211,6 +214,7 @@
 				02E0F402293DE34100F418F3 /* AppDelegate.swift in Sources */,
 				02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */,
 				222B18AD293DE9F300ECD3ED /* Network.swift in Sources */,
+				DECBD495293DFECF00EA1DFC /* History.swift in Sources */,
 				222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */,
 				4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */,
 				222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */,

@@ -8,10 +8,11 @@
 import Foundation
 
 struct ResponseModel: Codable {
+
 	let ticker: String
 	let queryCount, resultsCount: Int
 	let adjusted: Bool
-	let results: [Result]
+	var results: [Result]
 	let status, requestID: String
 	let count: Int
 
@@ -22,10 +23,19 @@ struct ResponseModel: Codable {
 	}
 }
 
-// MARK: - Result
 struct Result: Codable {
 	let v: Int
 	let vw, o, c, h: Double
 	let l: Double
 	let t, n: Int
+}
+
+
+struct GraphData {
+
+	/// Название компании
+	let ticker: String
+
+	/// Средние цены на акции в выбранном промежутке
+	var values: [Double]
 }
