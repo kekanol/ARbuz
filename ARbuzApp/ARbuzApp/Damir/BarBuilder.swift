@@ -11,21 +11,33 @@ import SceneKit
 
 final class BarBuilder {
 
+	private let chartData: ChartData
+
+	init(chartData: ChartData) {
+		self.chartData = chartData
+	}
+
 	@discardableResult
-	func build(with chartData: ChartData, at hitTestResult: ARHitTestResult, scaleFactor: Double = 1) -> SCNNode {
+	func build(at hitTestResult: ARHitTestResult,
+			   width: CGFloat = 0.3,
+			   scaleFactor: Double = 1,
+			   distanceBetweenBlocks: Float = 0.3 / 2,
+			   chamferRadius: CGFloat = 0.1) -> SCNNode {
 		let position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
-								  hitTestResult.worldTransform.columns.3.y + 0.05,
+								  hitTestResult.worldTransform.columns.3.y + 0.1,
 								  hitTestResult.worldTransform.columns.3.z)
 		let coreNode = SCNNode()
 		coreNode.position = position
 
 		for (index, point) in chartData.points.enumerated() {
-			let box = SCNBox(width: 0.5, height: point.value, length: 0.5, chamferRadius: 0.01)
+			let box = SCNBox(width: width, height: point.value, length: width, chamferRadius: chamferRadius)
 			box.firstMaterial?.diffuse.contents = point.color
 			box.name = point.name
 
 			let boxNode = SCNNode(geometry: box)
-			boxNode.position = .init(position.x + Float(index) * 0.5 + 0.2, position.y, position.z)
+			boxNode.position = .init(position.x + Float(index) * (Float(width) + distanceBetweenBlocks),
+									 position.y + Float(point.value / 2),
+									 position.z)
 
 			coreNode.addChildNode(boxNode)
 		}
