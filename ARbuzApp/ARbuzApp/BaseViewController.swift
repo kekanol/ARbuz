@@ -43,7 +43,8 @@ extension BaseViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 
 	func open2D() {
-		print("open2d")
+		let vc = GraphViewController()
+		navigationController?.pushViewController(vc, animated: true)
 	}
 
 	func openPie() {
@@ -76,13 +77,14 @@ private extension BaseViewController {
 
 		init() {
 			super.init(style: .default, reuseIdentifier: Self.reuseIdentifier)
+			titleLabel.font = .systemFont(ofSize: 24)
 			addSubview(titleLabel)
 			titleLabel.translatesAutoresizingMaskIntoConstraints = false
 			NSLayoutConstraint.activate([
-				titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+				titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 				titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-				titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-				titleLabel.topAnchor.constraint(equalTo: topAnchor)
+				titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+				titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8)
 			])
 		}
 
