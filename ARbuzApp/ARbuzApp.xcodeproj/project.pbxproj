@@ -19,6 +19,8 @@
 		222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* GraphViewController.swift */; };
 		222B18AD293DE9F300ECD3ED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18AC293DE9F300ECD3ED /* Network.swift */; };
 		222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */; };
+		4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD7293DFCC7004F6923 /* DataModels.swift */; };
+		4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD8293DFCC7004F6923 /* DataProvider.swift */; };
 		DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		222B18A9293DE91900ECD3ED /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		222B18AC293DE9F300ECD3ED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewController.swift; sourceTree = "<group>"; };
+		4F526BD7293DFCC7004F6923 /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		4F526BD8293DFCC7004F6923 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		DECBD493293DEE9200EA1DFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,9 +120,20 @@
 			isa = PBXGroup;
 			children = (
 				222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */,
+				4F526BD6293DFCC7004F6923 /* Business */,
 			);
 			path = Kirill;
 			sourceTree = "<group>";
+		};
+		4F526BD6293DFCC7004F6923 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				4F526BD7293DFCC7004F6923 /* DataModels.swift */,
+				4F526BD8293DFCC7004F6923 /* DataProvider.swift */,
+			);
+			name = Business;
+			path = ARbuzApp/Business;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -197,8 +212,10 @@
 				02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */,
 				222B18AD293DE9F300ECD3ED /* Network.swift in Sources */,
 				222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */,
+				4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */,
 				222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */,
 				02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */,
+				4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */,
 				DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
 			);
@@ -347,7 +364,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APAW5P9QGC;
+				DEVELOPMENT_TEAM = S2BZUU4LX5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -364,7 +381,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp1;
+				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -379,7 +396,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APAW5P9QGC;
+				DEVELOPMENT_TEAM = S2BZUU4LX5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARbuzApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -396,7 +413,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp1;
+				PRODUCT_BUNDLE_IDENTIFIER = ARbuzApp.ARbuzApp3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
