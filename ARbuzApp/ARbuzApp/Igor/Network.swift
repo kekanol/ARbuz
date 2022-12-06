@@ -10,6 +10,12 @@ import Foundation
 /// Структура для работы с сетью
 struct Network {
 
+	private let mockResponces: Bool
+
+	init(useMocks: Bool = false) {
+		mockResponces = useMocks
+	}
+
 	func request(for company: Company,
 				 dayFrom: String = "2021-03-22",
 				 dayTo: String = "2021-07-22",
@@ -27,6 +33,15 @@ private extension Network {
 				 dayFrom: String = "2021-03-22",
 				 dayTo: String = "2021-07-22",
 				 completion: @escaping (ResponseModel) -> Void) {
+		guard !mockResponces else {
+			if let path = Bundle.main.path(forResource: ticket, ofType: "json"),
+			   let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
+			   let result = try? JSONDecoder().decode(ResponseModel.self, from: jsonData) {
+				completion(result)
+			}
+			return
+		}
+
 		guard let url = URL(string: urlString(for: ticket,
 											  dayFrom: dayFrom,
 											  dayTo: dayTo)) else { return }
@@ -38,7 +53,7 @@ private extension Network {
 				   let response = try? JSONDecoder().decode(ResponseModel.self, from: data) {
 					DispatchQueue.main.async {
 						completion(response)
-						History.shared.save(responseModel: response)
+//						History.shared.save(responseModel: response)
 					}
 				} else {
 					guard let path = Bundle.main.path(forResource: ticket, ofType: "json"),
