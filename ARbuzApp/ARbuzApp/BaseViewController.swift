@@ -40,6 +40,7 @@ extension BaseViewController: UITableViewDelegate, UITableViewDataSource {
 			case 2: openPie()
 			default: break
 		}
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
 
 	func open2D() {
