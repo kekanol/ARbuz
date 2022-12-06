@@ -52,16 +52,11 @@ final class BarChartController: UIViewController {
 	private var planes = [Plane]()
 
 	private var chartData: ChartData?
+	private var floorIsActive: Bool = false
 
 	init(provider: DataProviderProtocol) {
 		self.provider = provider
 		super.init(nibName: nil, bundle: nil)
-
-		provider.fetchData { [weak self] chartData in
-			guard let self = self else { return }
-			self.chartData = chartData
-			self.barChart?.update(chartData: chartData, parentNode: self.sceneView.scene.rootNode)
-		}
 	}
 
 	@available(*, unavailable)
@@ -88,17 +83,52 @@ final class BarChartController: UIViewController {
 
 		//addFloor(to: scene)
 		configureTapGesture()
+		setupLight()
 		sceneView.scene = scene
+
+		provider.fetchData { [weak self] chartData in
+			guard let self = self else { return }
+			self.chartData = chartData
+			self.barChart?.update(chartData: chartData)
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		sceneView.session.run(configuration)
+		let floorButton = UIBarButtonItem(
+			systemItem: .add,
+			primaryAction: UIAction(title: "Enable floor",
+									handler: { [weak self] _ in
+										guard let self = self else { return }
+										if self.floorIsActive {
+											self.barChart?.removeFloor(); self.floorIsActive = false
+										} else {
+											self.barChart?.addFloor(); self.floorIsActive = true
+										}
+									}),
+			menu: nil)
+		let clearButton = UIBarButtonItem(
+			systemItem: .trash,
+			primaryAction: UIAction(title: "Clear",
+									handler: { [weak self] _ in
+										self?.clear()
+									}),
+			menu: nil)
+		navigationItem.rightBarButtonItems = [floorButton, clearButton]
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		sceneView.session.pause()
+	}
+
+	private func clear() {
+		barChart?.removeFromParentNode()
+		barChart = nil
+
+		planes.forEach{ $0.removeFromParentNode() }
+		planes = []
 	}
 
 }
@@ -107,13 +137,24 @@ final class BarChartController: UIViewController {
 
 private extension BarChartController {
 
+	func setupLight() {
+		let lightNode = SCNNode()
+		lightNode.light = SCNLight()
+		lightNode.light!.type = .spot
+		lightNode.light!.castsShadow = true
+		lightNode.light!.shadowMode = .deferred
+		lightNode.rotation = SCNVector4(x: -1, y: 0, z: 0, w: Float(CGFloat.pi)/2)
+		lightNode.position = SCNVector3(x: 0, y: 20, z: 0)
+		sceneView.scene.rootNode.addChildNode(lightNode)
+	}
+
 	func configureTapGesture() {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(spawnChart))
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 
 	@objc func spawnChart(tapGesture: UITapGestureRecognizer) {
-		guard let sceneView = tapGesture.view as? ARSCNView else { return }
+		guard let sceneView = tapGesture.view as? ARSCNView, barChart == nil else { return }
 		let tapLocation = tapGesture.location(in: sceneView)
 		// Вектор к поверхности, если он пересекает какую-то поверхность, то попадает в результирующее значение
 		guard let hitTestResult = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent).first,
@@ -122,13 +163,6 @@ private extension BarChartController {
 		let barChart = BarChart(hitTestResult: hitTestResult, chartData: chartData)
 		self.barChart = barChart
 		sceneView.scene.rootNode.addChildNode(barChart)
-
-//		self.hitTestResult = hitTestResult
-//		createChartIfNeeded()
-//
-//		if let chartData = chartData {
-//			(chartData: chartData, hitTestResult: hitTestResult)
-//		}
 	}
 
 //	func createCube(_ hitTestResult: ARHitTestResult) {
