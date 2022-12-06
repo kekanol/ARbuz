@@ -26,6 +26,9 @@
 		2287195A293F3819001395D9 /* AAPL.json in Resources */ = {isa = PBXBuildFile; fileRef = 22871959293F3819001395D9 /* AAPL.json */; };
 		4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD7293DFCC7004F6923 /* DataModels.swift */; };
 		4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD8293DFCC7004F6923 /* DataProvider.swift */; };
+		4F70F9B6293F45BE007FAE64 /* MSFT.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F70F9B3293F45BE007FAE64 /* MSFT.json */; };
+		4F70F9B7293F45BE007FAE64 /* BABA.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F70F9B4293F45BE007FAE64 /* BABA.json */; };
+		4F70F9B8293F45BE007FAE64 /* AMD.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F70F9B5293F45BE007FAE64 /* AMD.json */; };
 		DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */; };
 		DECBD495293DFECF00EA1DFC /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD494293DFECF00EA1DFC /* History.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,9 @@
 		22871959293F3819001395D9 /* AAPL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AAPL.json; sourceTree = "<group>"; };
 		4F526BD7293DFCC7004F6923 /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		4F526BD8293DFCC7004F6923 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		4F70F9B3293F45BE007FAE64 /* MSFT.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MSFT.json; sourceTree = "<group>"; };
+		4F70F9B4293F45BE007FAE64 /* BABA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BABA.json; sourceTree = "<group>"; };
+		4F70F9B5293F45BE007FAE64 /* AMD.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AMD.json; sourceTree = "<group>"; };
 		DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		DECBD493293DEE9200EA1DFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DECBD494293DFECF00EA1DFC /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -95,7 +101,7 @@
 				222B18AB293DE9D800ECD3ED /* Igor */,
 				222B18A8293DE8D900ECD3ED /* Kostya */,
 				02E0F418293DE84F00F418F3 /* Damir */,
-				22871959293F3819001395D9 /* AAPL.json */,
+				4F70F9B9293F45C6007FAE64 /* Resources */,
 				02E0F407293DE34100F418F3 /* Main.storyboard */,
 				02E0F40A293DE34200F418F3 /* Assets.xcassets */,
 				02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */,
@@ -152,6 +158,17 @@
 			name = Business;
 			path = ARbuzApp/Business;
 			sourceTree = SOURCE_ROOT;
+		};
+		4F70F9B9293F45C6007FAE64 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				22871959293F3819001395D9 /* AAPL.json */,
+				4F70F9B5293F45BE007FAE64 /* AMD.json */,
+				4F70F9B4293F45BE007FAE64 /* BABA.json */,
+				4F70F9B3293F45BE007FAE64 /* MSFT.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -212,7 +229,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				02E0F404293DE34100F418F3 /* art.scnassets in Resources */,
+				4F70F9B6293F45BE007FAE64 /* MSFT.json in Resources */,
+				4F70F9B8293F45BE007FAE64 /* AMD.json in Resources */,
 				2287195A293F3819001395D9 /* AAPL.json in Resources */,
+				4F70F9B7293F45BE007FAE64 /* BABA.json in Resources */,
 				02E0F40E293DE34200F418F3 /* LaunchScreen.storyboard in Resources */,
 				02E0F40B293DE34200F418F3 /* Assets.xcassets in Resources */,
 				02E0F409293DE34100F418F3 /* Main.storyboard in Resources */,
