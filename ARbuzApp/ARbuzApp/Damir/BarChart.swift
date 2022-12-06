@@ -11,10 +11,10 @@ import ARKit
 final class BarChart: SCNNode {
 
 	private enum Constant {
-		static let width: CGFloat = 0.3 * Constant.scaleFactor
-		static let distanceBetweenBars: Float = Float(0.3 / 2 * Constant.scaleFactor)
-		static let chamferRadius: CGFloat = 0.005
-		static let scaleFactor: Double = 0.4
+		static let width: CGFloat = 0.5 * Constant.scaleFactor
+		static let distanceBetweenBars: Float = Float(Constant.width / 2 * Constant.scaleFactor)
+		static let chamferRadius: CGFloat = 0.01
+		static let scaleFactor: Double = 1
 	}
 
 	private var chartData: ChartData
@@ -66,8 +66,8 @@ final class BarChart: SCNNode {
 	private func setupTexts() {
 		for (index, point) in chartData.bars.enumerated() {
 			let textNode = createTextNode(with: chartData, index: index)
-			textNode.simdPosition = .init(x: barNodes[index].simdPosition.x,
-										  y: barNodes[index].simdPosition.y,
+			textNode.simdPosition = .init(x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+										  y: position.y,
 										  z: barNodes[index].simdPosition.z + Float(Constant.width))
 
 //			let quaternion = simd_quatf(angle: GLKMathDegreesToRadians(-45), axis: simd_float3(1,0,0))
@@ -97,7 +97,7 @@ final class BarChart: SCNNode {
 	}
 
 	func createTextNode(with chartData: ChartData, index: Int) -> SCNNode {
-		let newText = SCNText(string: "\(chartData.bars[index].money)" , extrusionDepth: 0)
+		let newText = SCNText(string: "\(chartData.bars[index].name)" , extrusionDepth: 0)
 		newText.font = UIFont (name: "Arial", size: 0.12)//.systemFont(ofSize: 0.05)
 		newText.firstMaterial!.diffuse.contents = chartData.bars[index].color
 		newText.firstMaterial?.isDoubleSided = true
