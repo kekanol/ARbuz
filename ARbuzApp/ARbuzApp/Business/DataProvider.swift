@@ -17,7 +17,7 @@ protocol DataProviderProtocol {
 
 final class DataProvider {
 
-	private let network = Network()
+	private let network = Network(useMocks: true)
 
 	private var completion: ChartDataBlock?
 
@@ -59,8 +59,6 @@ extension DataProvider: DataProviderProtocol {
 							dayTo: randomDay) { [weak self] model in
 				guard let self = self else { return }
 
-				print("Fetched \(company) for \(randomDay)")
-
 				self.lock.lock()
 				self.companyResponces[company] = model
 				self.lock.unlock()
@@ -71,6 +69,7 @@ extension DataProvider: DataProviderProtocol {
 
 		// Final
 		group.notify(queue: DispatchQueue.main) { [weak self] in
+			print("\n\n")
 			self?.updateData()
 		}
 	}
@@ -92,6 +91,7 @@ private extension DataProvider {
 							   money: "$\(Int(lastResult.c))",
 							   color: company.color)
 			bars.append(bar)
+			print("Fetched \(bar)\n")
 		}
 		let storage = ChartData(bars: bars)
 		completion?(storage)
