@@ -27,7 +27,7 @@ final class DataProvider {
 	
 	private let lock = NSLock()
 
-	private let companies: [Company] = [.Apple]
+	private let companies: [Company] = [.Apple, .Microsoft, .AMD, .Alibaba]
 	
 	private let daysForFetching = ["2021-01-22",
 								   "2021-02-22",
@@ -88,8 +88,8 @@ private extension DataProvider {
 
 			let money = value(for: lastResult.c, below: max)
 			let bar = ChartBar(name: company.name,
-							   value: Double.random(in: 0...1),
-							   money: "$\(money))",
+							   value: money,
+							   money: "$\(Int(lastResult.c))",
 							   color: company.color)
 			bars.append(bar)
 		}
