@@ -93,7 +93,7 @@ final class BarChart: SCNNode {
 
 			valueTextNode.position = .init(
 				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
-				y: barNodes[index].simdPosition.y + Float(Constant.width + point.value),
+				y: barNodes[index].simdPosition.y + Constant.distanceBetweenBars + Float(point.value),
 				z: barNodes[index].simdPosition.z)
 
 			valueTextNodes.append(valueTextNode)
@@ -184,6 +184,7 @@ final class BarChart: SCNNode {
 	/// Обновить данные
 	/// - Parameter chartData: данные графика
 	func update(chartData: ChartData) {
+		self.chartData = chartData
 		for index in 0 ..< barNodes.count {
 			let targetGeometry = SCNBox(width: Constant.width,
 										height: chartData.bars[index].value * Constant.scaleFactor,
@@ -194,12 +195,19 @@ final class BarChart: SCNNode {
 			morpher.targets = [targetGeometry]
 			barNodes[index].morpher = morpher
 
-			valueTextNodes[index].position = .init(
+			var textNode = createValueTextNode(with: chartData, index: index)
+
+			textNode.simdPosition = .init(
 				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
-				y: barNodes[index].simdPosition.y + Float(Constant.width + chartData.bars[index].value),
+				y: barNodes[index].simdPosition.y + Constant.distanceBetweenBars + Float(chartData.bars[index].value),
 				z: barNodes[index].simdPosition.z)
 
-			valueTextNodes[index].
+			valueTextNodes[index].removeFromParentNode()
+			addChildNode(textNode)
+
+			valueTextNodes[index] = textNode
+
+
 
 			let animation = CABasicAnimation(keyPath: "morpher.weights[0]")
 			animation.toValue = 1.0
