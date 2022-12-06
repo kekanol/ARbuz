@@ -28,18 +28,38 @@ final class DataProvider {
 	private let lock = NSLock()
 
 	private let companies: [Company] = [.Apple, .Microsoft]
+	
+	private let daysForFetching = ["2021-01-22",
+								   "2021-02-22",
+								   "2021-03-22",
+								   "2021-04-22",
+								   "2021-05-22",
+								   "2021-06-22",
+								   "2021-07-22",
+								   "2021-08-22",
+								   "2021-09-22",
+								   "2021-10-22",
+								   "2021-11-22",
+								   "2021-12-22",
+	]
 }
 
 extension DataProvider: DataProviderProtocol {
 
 	func fetchData(completion: @escaping ChartDataBlock) {
 		self.completion = completion
+
+		let randomDay = daysForFetching.randomElement() ?? "2021-01-01"
 		let group = DispatchGroup()
 		companies.forEach { company in
 			group.enter()
-			network.request(for: company) { [weak self] model in
+
+			network.request(for: company, dayFrom:
+								randomDay,
+							dayTo: randomDay) { [weak self] model in
 				guard let self = self else { return }
-				print("network model: \(model)")
+
+				print("Fetched \(company) for \(randomDay)")
 
 				self.lock.lock()
 				self.companyResponces[company] = model
@@ -53,15 +73,12 @@ extension DataProvider: DataProviderProtocol {
 		group.notify(queue: DispatchQueue.main) { [weak self] in
 			self?.updateData()
 		}
-
-		timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: timerTick)
 	}
 }
 
 private extension DataProvider {
 
 	func updateData() {
-		
 		var bars = [ChartBar]()
 		companies.forEach { company in
 			guard
@@ -76,18 +93,25 @@ private extension DataProvider {
 		}
 		let storage = ChartData(bars: bars)
 		completion?(storage)
+
+		timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: timerTick)
 	}
 
 	func timerTick(_ timer: Timer) {
-		let names = ["Apple", "Microsoft", "Netflix"]
-		let colors = [UIColor.red, UIColor.blue, UIColor.yellow]
-		let bars = names.map { name in
-			ChartBar(name: name,
-					 value: Double.random(in: 0...1),
-					 money: "$ 100 500",
-					 color: colors.randomElement() ?? UIColor.lightGray)
+		if let completion = completion {
+			fetchData(completion: completion)
 		}
-		let storage = ChartData(bars: bars)
-		completion?(storage)
+
+//		let names = ["Apple", "Microsoft", "Netflix"]
+//		let colors = [UIColor.red, UIColor.blue, UIColor.yellow]
+//		let bars = names.map { name in
+//			ChartBar(name: name,
+//					 value: Double.random(in: 0...1),
+//					 money: "$ 100 500",
+//					 color: colors.randomElement() ?? UIColor.lightGray)
+//		}
+//		let storage = ChartData(bars: bars)
+//		completion?(storage)
+		
 	}
 }
