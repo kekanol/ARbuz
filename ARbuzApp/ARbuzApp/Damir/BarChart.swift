@@ -70,7 +70,7 @@ final class BarChart: SCNNode {
 
 			let barNode = SCNNode(geometry: box)
 			barNode.position = .init(position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
-									 position.y + Float(point.value / 2),
+									 position.y,
 									 position.z)
 
 			bars.append(barNode)
