@@ -96,18 +96,6 @@ final class BarChartController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		sceneView.session.run(configuration)
-		let floorButton = UIBarButtonItem(
-			systemItem: .add,
-			primaryAction: UIAction(title: "Enable floor",
-									handler: { [weak self] _ in
-										guard let self = self else { return }
-										if self.floorIsActive {
-											self.barChart?.removeFloor(); self.floorIsActive = false
-										} else {
-											self.barChart?.addFloor(); self.floorIsActive = true
-										}
-									}),
-			menu: nil)
 		let clearButton = UIBarButtonItem(
 			systemItem: .trash,
 			primaryAction: UIAction(title: "Clear",
@@ -115,7 +103,7 @@ final class BarChartController: UIViewController {
 										self?.clear()
 									}),
 			menu: nil)
-		navigationItem.rightBarButtonItems = [floorButton, clearButton]
+		navigationItem.rightBarButtonItems = [clearButton]
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {

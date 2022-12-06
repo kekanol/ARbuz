@@ -50,12 +50,12 @@ final class BarChart: SCNNode {
 		barGeometry = SCNPlane(width: CGFloat(anchor.extent.x),
 							   height: CGFloat(anchor.extent.z))
 
-//		geometry = barGeometry
 		position = hitPosition
 
 		// Для отрисовки в горизонтали
 //		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
 
+		addFloor()
 		setupBars()
 	}
 
@@ -69,9 +69,9 @@ final class BarChart: SCNNode {
 			box.name = point.name
 
 			let barNode = SCNNode(geometry: box)
-			barNode.position = .init(position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
-									 position.y,
-									 position.z)
+			barNode.simdPosition = .init(position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+										 position.y,
+										 position.z)
 
 			bars.append(barNode)
 			addChildNode(barNode)
@@ -80,7 +80,7 @@ final class BarChart: SCNNode {
 
 	func addFloor() {
 		let floor = SCNFloor()
-		floor.reflectivity = 0.5
+		floor.reflectivity = 0
 
 		let material = SCNMaterial()
 		material.diffuse.contents = UIColor.lightGray
@@ -96,11 +96,6 @@ final class BarChart: SCNNode {
 
 		self.floorNode = floorNode
 		addChildNode(floorNode)
-	}
-
-	func removeFloor() {
-		floorNode?.removeFromParentNode()
-		floorNode = nil
 	}
 
 //	/// Для обновления поверхности при вращении устройства
@@ -129,11 +124,19 @@ final class BarChart: SCNNode {
 //		bars.removeAll()
 //		self.chartData = chartData
 //		configure(parentNode: parentNode)
+
+		//		let targetGeometry = SCNBox(width: 0.45, height: rnd, length: 0.45, chamferRadius: 0.01)
+		//		let newNode = SCNNode(geometry: targetGeometry)
+		//
+		//		sourceNodes[i].simdPivot.columns.3.y = newNode.boundingBox.min.y
+		//		sourceNodes[i].simdPosition = SIMD3(x: sourceNodes[i].simdPosition.x, y: 0, z: 0)
+		//		sourceNodes[i].name = "\(rnd)"
 		for index in 0 ..< bars.count {
 			let targetGeometry = SCNBox(width: Constant.width,
 										height: chartData.bars[index].value * Constant.scaleFactor,
 										length: Constant.width,
 										chamferRadius: Constant.chamferRadius)
+
 			let morpher = SCNMorpher()
 			morpher.targets = [targetGeometry]
 			bars[index].morpher = morpher
@@ -142,7 +145,7 @@ final class BarChart: SCNNode {
 			animation.toValue = 1.0
 			animation.repeatCount = 0.0
 			animation.duration = 1.0
-			animation.fillMode = .forwards
+			animation.fillMode = .both
 			animation.isRemovedOnCompletion = false
 
 			bars[index].addAnimation(animation, forKey: nil)
