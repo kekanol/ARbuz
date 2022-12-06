@@ -86,7 +86,7 @@ private extension DataProvider {
 				let lastResult = responce.results.randomElement() else { return }
 
 			let money = value(for: lastResult.c, below: max)
-			let bar = ChartBar(name: company.name,
+			let bar = ChartBar(name: company.ticket,
 							   value: money,
 							   money: "$\(Int(lastResult.c))",
 							   color: company.color)
