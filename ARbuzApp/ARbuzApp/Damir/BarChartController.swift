@@ -9,38 +9,6 @@ import UIKit
 import SceneKit
 import ARKit
 
-//final class BarChartViewModel {
-//
-//	private let provider: DataProviderProtocol
-//
-//	private var hitPosition: SCNVector3?
-//	private var chartData: ChartData {
-//		didSet {
-//			guard let hitPosition = hitPosition else { return }
-//			DispatchQueue.main.async { self.update(self.chartData, hitPosition) }
-//		}
-//	}
-//
-//	var update: (_ chartData: ChartData, _ hitPosition: SCNVector3) -> Void = {_, _ in}
-//
-//	init(provider: DataProviderProtocol) {
-//		self.provider = provider
-//
-//		provider.fetchData { [weak self] chartData in
-//			self?.chartData = chartData
-//		}
-//	}
-//
-//	func tap(at hitPosition: SCNVector3) {
-//		self.hitPosition = hitPosition
-//		self.update(self.chartData, hitPosition)
-//	}
-//
-//	func clear() {
-//		hitPosition = nil
-//	}
-//}
-
 final class BarChartController: UIViewController {
 
 	private var sceneView: ARSCNView!
@@ -80,12 +48,12 @@ final class BarChartController: UIViewController {
 		let scene = SCNScene()
 
 		sceneView.debugOptions = [.showWorldOrigin, .showFeaturePoints]
-		configuration.planeDetection = [.horizontal, .vertical]
+		configuration.planeDetection = [.horizontal]
 
 		//addFloor(to: scene)
 		configureTapGesture()
-		setupLight()
 		sceneView.scene = scene
+		setupLight()
 
 		provider.fetchData { [weak self] chartData in
 			guard let self = self else { return }
@@ -153,6 +121,7 @@ private extension BarChartController {
 		self.barChart = barChart
 		self.barChartSpawned = true
 		sceneView.scene.rootNode.addChildNode(barChart)
+		setupLight()
 	}
 
 //	func createCube(_ hitTestResult: ARHitTestResult) {
@@ -219,20 +188,9 @@ private extension BarChartController {
 
 extension BarChartController: ARSCNViewDelegate {
 
-	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-		guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-		let plane = Plane(anchor: planeAnchor)
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {}
 
-		planes.append(plane)
-		node.addChildNode(plane)
-	}
-
-	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-		let plane = planes.filter { $0.anchor.identifier == anchor.identifier }.first
-		guard let uPlane = plane, let arAnchor = anchor as? ARPlaneAnchor else { return }
-
-		uPlane.update(anchor: arAnchor)
-	}
+	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {}
 
 }
 

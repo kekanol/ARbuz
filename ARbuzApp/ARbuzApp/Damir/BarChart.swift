@@ -20,8 +20,11 @@ final class BarChart: SCNNode {
 	private var chartData: ChartData
 	private var hitTestResult: ARHitTestResult
 	private var barGeometry: SCNPlane?
-	private var bars: [SCNNode] = []
 	private var floorNode: SCNNode?
+
+	private var nameTextNodes: [SCNNode] = []
+	private var valueTextNodes: [SCNNode] = []
+	private var barNodes: [SCNNode] = []
 
 	private var anchor: ARPlaneAnchor {
 		hitTestResult.anchor as! ARPlaneAnchor
@@ -57,6 +60,21 @@ final class BarChart: SCNNode {
 
 		addFloor()
 		setupBars()
+		setupTexts()
+	}
+
+	private func setupTexts() {
+		for (index, point) in chartData.bars.enumerated() {
+			let textNode = createTextNode(with: chartData, index: index)
+			textNode.simdPosition = .init(x: barNodes[index].simdPosition.x,
+										  y: barNodes[index].simdPosition.y,
+										  z: barNodes[index].simdPosition.z + Float(Constant.width))
+
+//			let quaternion = simd_quatf(angle: GLKMathDegreesToRadians(-45), axis: simd_float3(1,0,0))
+//			textNode.simdOrientation = quaternion * textNode.simdOrientation
+			barNodes[index].addChildNode(textNode)
+			valueTextNodes.append(textNode)
+		}
 	}
 
 	private func setupBars() {
@@ -73,9 +91,28 @@ final class BarChart: SCNNode {
 										 position.y,
 										 position.z)
 
-			bars.append(barNode)
+			barNodes.append(barNode)
 			addChildNode(barNode)
 		}
+	}
+
+	func createTextNode(with chartData: ChartData, index: Int) -> SCNNode {
+		let newText = SCNText(string: "\(chartData.bars[index].money)" , extrusionDepth: 0)
+		newText.font = UIFont (name: "Arial", size: 0.12)//.systemFont(ofSize: 0.05)
+		newText.firstMaterial!.diffuse.contents = chartData.bars[index].color
+		newText.firstMaterial?.isDoubleSided = true
+
+		let planeNode = SCNNode(geometry: newText)
+		planeNode.name = "textNode"
+
+		let (minBound, maxBound) = newText.boundingBox
+		let xPivot = (maxBound.x - minBound.x)/2
+		let yPivot = (maxBound.y - minBound.y)/2
+		let zPivot = (maxBound.z - minBound.z)/2
+
+		planeNode.pivot = SCNMatrix4MakeTranslation(xPivot, yPivot, zPivot)
+
+		return planeNode
 	}
 
 	func addFloor() {
@@ -84,14 +121,14 @@ final class BarChart: SCNNode {
 
 		let material = SCNMaterial()
 		material.diffuse.contents = UIColor.white
-		material.diffuse.contentsTransform = SCNMatrix4MakeScale(50, 50, 0)
-		// Координата текстуры S измеряет горизонтальную ось
+//		material.diffuse.contentsTransform = SCNMatrix4MakeScale(50, 50, 0)
+//		// Координата текстуры S измеряет горизонтальную ось
 		material.diffuse.wrapS = .repeat
-		// Координата текстуры T измеряет вертикальную ось
+//		// Координата текстуры T измеряет вертикальную ось
 		material.diffuse.wrapT = .repeat
 
 		let floorNode = SCNNode(geometry: floor)
-		floorNode.position = SCNVector3(x: 0, y: -0.1, z: 0)
+		floorNode.position = hitPosition
 		floorNode.geometry?.materials = [material]
 
 		self.floorNode = floorNode
@@ -101,7 +138,7 @@ final class BarChart: SCNNode {
 	/// Обновить данные
 	/// - Parameter chartData: данные графика
 	func update(chartData: ChartData) {
-		for index in 0 ..< bars.count {
+		for index in 0 ..< barNodes.count {
 			let targetGeometry = SCNBox(width: Constant.width,
 										height: chartData.bars[index].value * Constant.scaleFactor,
 										length: Constant.width,
@@ -109,7 +146,7 @@ final class BarChart: SCNNode {
 
 			let morpher = SCNMorpher()
 			morpher.targets = [targetGeometry]
-			bars[index].morpher = morpher
+			barNodes[index].morpher = morpher
 
 			let animation = CABasicAnimation(keyPath: "morpher.weights[0]")
 			animation.toValue = 1.0
@@ -118,7 +155,7 @@ final class BarChart: SCNNode {
 			animation.fillMode = .both
 			animation.isRemovedOnCompletion = false
 
-			bars[index].addAnimation(animation, forKey: nil)
+			barNodes[index].addAnimation(animation, forKey: nil)
 		}
 	}
 
