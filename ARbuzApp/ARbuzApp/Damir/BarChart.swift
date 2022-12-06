@@ -8,6 +8,15 @@
 import Foundation
 import ARKit
 
+extension Sequence {
+	func max<T: Comparable>(_ predicate: (Element) -> T)  -> Element? {
+		self.max(by: { predicate($0) < predicate($1) })
+	}
+	func min<T: Comparable>(_ predicate: (Element) -> T)  -> Element? {
+		self.min(by: { predicate($0) < predicate($1) })
+	}
+}
+
 final class BarChart: SCNNode {
 
 	private enum Constant {
@@ -22,12 +31,17 @@ final class BarChart: SCNNode {
 	private var barGeometry: SCNPlane?
 	private var floorNode: SCNNode?
 
-	private var nameTextNodes: [SCNNode] = []
 	private var valueTextNodes: [SCNNode] = []
+	private var nameTextNodes: [SCNNode] = []
 	private var barNodes: [SCNNode] = []
 
 	private var anchor: ARPlaneAnchor {
 		hitTestResult.anchor as! ARPlaneAnchor
+	}
+
+	private var maxHeight: Float {
+		let max = chartData.bars.max(\.value)
+		return Float(max!.value)
 	}
 
 	private var hitPosition: SCNVector3 {
@@ -55,9 +69,6 @@ final class BarChart: SCNNode {
 
 		position = hitPosition
 
-		// Для отрисовки в горизонтали
-//		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
-
 		addFloor()
 		setupBars()
 		setupTexts()
@@ -65,15 +76,31 @@ final class BarChart: SCNNode {
 
 	private func setupTexts() {
 		for (index, point) in chartData.bars.enumerated() {
-			let textNode = createTextNode(with: chartData, index: index)
-			textNode.simdPosition = .init(x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
-										  y: position.y,
-										  z: barNodes[index].simdPosition.z + Float(Constant.width))
+			let nameTextNode = createTextNode(with: chartData, index: index)
+			nameTextNode.simdPosition = .init(
+				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+				y: position.y,
+				z: barNodes[index].simdPosition.z + Float(Constant.width))
 
 //			let quaternion = simd_quatf(angle: GLKMathDegreesToRadians(-45), axis: simd_float3(1,0,0))
 //			textNode.simdOrientation = quaternion * textNode.simdOrientation
-			addChildNode(textNode)
-			valueTextNodes.append(textNode)
+
+			let valueTextNode = createValueTextNode(with: chartData, index: index)
+//			valueTextNode.simdPosition = .init(
+//				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+//				y: barNodes[index].simdPosition.y + maxHeight,
+//				z: barNodes[index].simdPosition.z)
+
+			valueTextNode.position = .init(
+				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+				y: barNodes[index].simdPosition.y + Float(Constant.width + point.value),
+				z: barNodes[index].simdPosition.z)
+
+			valueTextNodes.append(valueTextNode)
+			nameTextNodes.append(nameTextNode)
+
+			addChildNode(valueTextNode)
+			addChildNode(nameTextNode)
 		}
 	}
 
@@ -97,7 +124,26 @@ final class BarChart: SCNNode {
 	}
 
 	func createTextNode(with chartData: ChartData, index: Int) -> SCNNode {
-		let newText = SCNText(string: "\(chartData.bars[index].name)" , extrusionDepth: 2)
+		let newText = SCNText(string: "\(chartData.bars[index].name)" , extrusionDepth: 3)
+		newText.firstMaterial!.diffuse.contents = chartData.bars[index].color
+		newText.firstMaterial?.isDoubleSided = true
+
+		let planeNode = SCNNode(geometry: newText)
+		planeNode.scale = SCNVector3(x:0.01, y:0.01, z:0.01)
+		planeNode.name = "valueTextNode"
+
+		let (minBound, maxBound) = newText.boundingBox
+		let xPivot = (maxBound.x - minBound.x)/2
+		let yPivot = minBound.y
+		let zPivot = (maxBound.z - minBound.z)/2
+
+		planeNode.pivot = SCNMatrix4MakeTranslation(xPivot, yPivot, zPivot)
+
+		return planeNode
+	}
+
+	func createValueTextNode(with chartData: ChartData, index: Int) -> SCNNode {
+		let newText = SCNText(string: "\(chartData.bars[index].money)" , extrusionDepth: 2)
 		newText.firstMaterial!.diffuse.contents = chartData.bars[index].color
 		newText.firstMaterial?.isDoubleSided = true
 
@@ -147,6 +193,13 @@ final class BarChart: SCNNode {
 			let morpher = SCNMorpher()
 			morpher.targets = [targetGeometry]
 			barNodes[index].morpher = morpher
+
+			valueTextNodes[index].position = .init(
+				x: position.x + Float(index) * (Float(Constant.width) + Constant.distanceBetweenBars),
+				y: barNodes[index].simdPosition.y + Float(Constant.width + chartData.bars[index].value),
+				z: barNodes[index].simdPosition.z)
+
+			valueTextNodes[index].
 
 			let animation = CABasicAnimation(keyPath: "morpher.weights[0]")
 			animation.toValue = 1.0
