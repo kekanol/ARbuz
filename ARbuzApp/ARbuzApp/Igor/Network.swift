@@ -41,7 +41,7 @@ private extension Network {
 						History.shared.save(responseModel: response)
 					}
 				} else {
-					guard let path = Bundle.main.path(forResource: "AAPL", ofType: "json"),
+					guard let path = Bundle.main.path(forResource: ticket, ofType: "json"),
 						  let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
 						  let result = try? JSONDecoder().decode(ResponseModel.self, from: jsonData) else { return }
 					completion(result)

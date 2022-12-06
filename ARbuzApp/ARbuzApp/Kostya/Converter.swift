@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 final class Converter {
 	var viewSize: CGSize = .zero {

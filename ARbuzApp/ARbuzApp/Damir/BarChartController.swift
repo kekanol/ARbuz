@@ -58,6 +58,7 @@ final class BarChartController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 
 		provider.fetchData { [weak self] chartData in
+			print("chartData: \(chartData)")
 			guard let self = self else { return }
 			self.chartData = chartData
 			self.barChart?.update(chartData: chartData, parentNode: self.sceneView.scene.rootNode)
