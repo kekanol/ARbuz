@@ -15,7 +15,6 @@
 		02E0F40E293DE34200F418F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E0F40C293DE34200F418F3 /* LaunchScreen.storyboard */; };
 		02E0F41A293DE85F00F418F3 /* BarChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F419293DE85F00F418F3 /* BarChartController.swift */; };
 		02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41B293DE8CA00F418F3 /* Plane.swift */; };
-		02E0F41E293E069700F418F3 /* BarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41D293E069700F418F3 /* BarBuilder.swift */; };
 		02E0F420293F197100F418F3 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E0F41F293F197000F418F3 /* BarChart.swift */; };
 		222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A2293DE58A00ECD3ED /* BaseViewController.swift */; };
 		222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* GraphViewController.swift */; };
@@ -43,7 +42,6 @@
 		02E0F40D293DE34200F418F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02E0F419293DE85F00F418F3 /* BarChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartController.swift; sourceTree = "<group>"; };
 		02E0F41B293DE8CA00F418F3 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		02E0F41D293E069700F418F3 /* BarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBuilder.swift; sourceTree = "<group>"; };
 		02E0F41F293F197000F418F3 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		222B18A2293DE58A00ECD3ED /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		222B18A9293DE91900ECD3ED /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				02E0F419293DE85F00F418F3 /* BarChartController.swift */,
-				02E0F41D293E069700F418F3 /* BarBuilder.swift */,
 				02E0F41B293DE8CA00F418F3 /* Plane.swift */,
 				02E0F41F293F197000F418F3 /* BarChart.swift */,
 			);
@@ -261,7 +258,6 @@
 				DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */,
 				222B18A3293DE58A00ECD3ED /* BaseViewController.swift in Sources */,
 				02E0F420293F197100F418F3 /* BarChart.swift in Sources */,
-				02E0F41E293E069700F418F3 /* BarBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,7 +83,7 @@ final class BarChart: SCNNode {
 		floor.reflectivity = 0
 
 		let material = SCNMaterial()
-		material.diffuse.contents = UIColor.lightGray
+		material.diffuse.contents = UIColor.white
 		material.diffuse.contentsTransform = SCNMatrix4MakeScale(50, 50, 0)
 		// Координата текстуры S измеряет горизонтальную ось
 		material.diffuse.wrapS = .repeat
@@ -98,39 +98,9 @@ final class BarChart: SCNNode {
 		addChildNode(floorNode)
 	}
 
-//	/// Для обновления поверхности при вращении устройства
-//	func update(anchor: ARPlaneAnchor) {
-//		guard let barGeometry = barGeometry else { return }
-//
-//		barGeometry.width = CGFloat(anchor.extent.x)
-//		barGeometry.height = CGFloat(anchor.extent.z)
-//		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
-//
-//		bars.forEach { $0.removeFromParentNode() }
-//		setupBars()
-//	}
-
-	/// Обновить данные по нажатию
-	/// - Parameter hitTestResult: результаты хит-теста
-//	func update(hitTestResult: ARHitTestResult, parentNode: SCNNode) {
-//		self.hitTestResult = hitTestResult
-//		configure(parentNode: parentNode)
-//	}
-
 	/// Обновить данные
 	/// - Parameter chartData: данные графика
 	func update(chartData: ChartData) {
-//		bars.forEach { $0.removeFromParentNode() }
-//		bars.removeAll()
-//		self.chartData = chartData
-//		configure(parentNode: parentNode)
-
-		//		let targetGeometry = SCNBox(width: 0.45, height: rnd, length: 0.45, chamferRadius: 0.01)
-		//		let newNode = SCNNode(geometry: targetGeometry)
-		//
-		//		sourceNodes[i].simdPivot.columns.3.y = newNode.boundingBox.min.y
-		//		sourceNodes[i].simdPosition = SIMD3(x: sourceNodes[i].simdPosition.x, y: 0, z: 0)
-		//		sourceNodes[i].name = "\(rnd)"
 		for index in 0 ..< bars.count {
 			let targetGeometry = SCNBox(width: Constant.width,
 										height: chartData.bars[index].value * Constant.scaleFactor,

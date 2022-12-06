@@ -49,6 +49,8 @@ final class BarChartController: UIViewController {
 	private let provider: DataProviderProtocol
 
 	private var barChart: BarChart?
+
+	private var barChartSpawned: Bool = false
 	private var planes = [Plane]()
 
 	private var chartData: ChartData?
@@ -113,7 +115,7 @@ final class BarChartController: UIViewController {
 
 	private func clear() {
 		barChart?.removeFromParentNode()
-		barChart = nil
+		barChartSpawned = false
 
 		planes.forEach{ $0.removeFromParentNode() }
 		planes = []
@@ -142,7 +144,7 @@ private extension BarChartController {
 	}
 
 	@objc func spawnChart(tapGesture: UITapGestureRecognizer) {
-		guard let sceneView = tapGesture.view as? ARSCNView, barChart == nil else { return }
+		guard let sceneView = tapGesture.view as? ARSCNView, !barChartSpawned else { return }
 		let tapLocation = tapGesture.location(in: sceneView)
 		// Вектор к поверхности, если он пересекает какую-то поверхность, то попадает в результирующее значение
 		guard let hitTestResult = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent).first,
@@ -150,6 +152,7 @@ private extension BarChartController {
 
 		let barChart = BarChart(hitTestResult: hitTestResult, chartData: chartData)
 		self.barChart = barChart
+		self.barChartSpawned = true
 		sceneView.scene.rootNode.addChildNode(barChart)
 	}
 
