@@ -10,18 +10,47 @@ import SceneKit
 import ARKit
 
 final class GraphViewController: UIViewController {
+	private let network = Network()
 	private var sceneView = ARSCNView(frame: .zero)
 	private let configuration = ARWorldTrackingConfiguration()
+	private var graph: GraphNode? {
+		didSet {
+			network.request(for: .Apple) { [weak self] response in
+				self?.graph?.updateWithModels(points: response.results)
+			}
+		}
+	}
+	private lazy var clearButton: UIButton = {
+		let button = UIButton()
+		button.setTitle("clear", for: .normal)
+		button.setTitleColor(.black, for: .normal)
+		button.backgroundColor = .white
+		button.addTarget(self, action: #selector(clear), for: .touchUpInside)
+		return button
+	}()
 
+	private lazy var fixedButton: UIButton = {
+		let button = UIButton()
+		button.setTitle("friz", for: .normal)
+		button.setTitleColor(.black, for: .normal)
+		button.backgroundColor = .white
+		button.addTarget(self, action: #selector(freeze), for: .touchUpInside)
+		return button
+	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .red
 		sceneView.delegate = self
 		configuration.planeDetection = [.vertical]
 		let scene = SCNScene()
-		addFloor(to: scene)
 		sceneView.scene = scene
+		view.addSubview(sceneView)
+		sceneView.frame = view.bounds
+		sceneView.addSubview(clearButton)
+		clearButton.frame = CGRect(x: 16, y: UIScreen.main.bounds.height - 66, width: 48, height: 24)
+
+		sceneView.addSubview(fixedButton)
+		fixedButton.frame = CGRect(x: 16 + 48 + 16, y: UIScreen.main.bounds.height - 66, width: 48, height: 24)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -36,26 +65,34 @@ final class GraphViewController: UIViewController {
 }
 
 extension GraphViewController: ARSCNViewDelegate {
+	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+		guard let uPlane = graph else {
+			return
+		}
 
+		uPlane.update(anchor: anchor as! ARPlaneAnchor)
+	}
+
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		guard let planeAnchor = anchor as? ARPlaneAnchor else {
+			return
+		}
+
+		guard graph == nil else { return }
+
+		let graph = GraphNode(anchor: planeAnchor)
+		node.addChildNode(graph)
+		self.graph = graph
+	}
 }
 
 private extension GraphViewController {
-	private func addFloor(to scene: SCNScene) {
-		let floor = SCNFloor()
-		floor.reflectivity = 0.5
+	@objc func clear() {
+		graph?.removeFromParentNode()
+		graph = nil
+	}
 
-		let material = SCNMaterial()
-		material.diffuse.contents = UIImage(systemName: "chevron.left")
-		material.diffuse.contentsTransform = SCNMatrix4MakeScale(50, 50, 0)
-		// Координата текстуры S измеряет горизонтальную ось
-		material.diffuse.wrapS = .repeat
-		// Координата текстуры T измеряет вертикальную ось
-		material.diffuse.wrapT = .repeat
-
-		let floorNode = SCNNode(geometry: floor)
-		floorNode.position = SCNVector3(x: 0, y: 0, z: -0.1)
-		floorNode.geometry?.materials = [material]
-
-		scene.rootNode.addChildNode(floorNode)
+	@objc func freeze() {
+		graph?.fixedSize = true
 	}
 }

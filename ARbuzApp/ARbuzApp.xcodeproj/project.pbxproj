@@ -21,6 +21,8 @@
 		222B18AA293DE91900ECD3ED /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18A9293DE91900ECD3ED /* GraphViewController.swift */; };
 		222B18AD293DE9F300ECD3ED /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18AC293DE9F300ECD3ED /* Network.swift */; };
 		222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */; };
+		22871957293F2597001395D9 /* GraphNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22871955293F2597001395D9 /* GraphNode.swift */; };
+		22871958293F2597001395D9 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22871956293F2597001395D9 /* Converter.swift */; };
 		4F526BD9293DFCC7004F6923 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD7293DFCC7004F6923 /* DataModels.swift */; };
 		4F526BDA293DFCC7004F6923 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526BD8293DFCC7004F6923 /* DataProvider.swift */; };
 		DECBD490293DEA7400EA1DFC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */; };
@@ -43,6 +45,8 @@
 		222B18A9293DE91900ECD3ED /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		222B18AC293DE9F300ECD3ED /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		222B18B0293DEA2E00ECD3ED /* BarChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewController.swift; sourceTree = "<group>"; };
+		22871955293F2597001395D9 /* GraphNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphNode.swift; sourceTree = "<group>"; };
+		22871956293F2597001395D9 /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		4F526BD7293DFCC7004F6923 /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		4F526BD8293DFCC7004F6923 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		DECBD48F293DEA7400EA1DFC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				222B18A9293DE91900ECD3ED /* GraphViewController.swift */,
+				22871956293F2597001395D9 /* Converter.swift */,
+				22871955293F2597001395D9 /* GraphNode.swift */,
 			);
 			path = Kostya;
 			sourceTree = "<group>";
@@ -218,7 +224,9 @@
 			files = (
 				02E0F406293DE34100F418F3 /* ViewController.swift in Sources */,
 				02E0F402293DE34100F418F3 /* AppDelegate.swift in Sources */,
+				22871957293F2597001395D9 /* GraphNode.swift in Sources */,
 				02E0F41C293DE8CA00F418F3 /* Plane.swift in Sources */,
+				22871958293F2597001395D9 /* Converter.swift in Sources */,
 				222B18AD293DE9F300ECD3ED /* Network.swift in Sources */,
 				DECBD495293DFECF00EA1DFC /* History.swift in Sources */,
 				222B18B1293DEA2E00ECD3ED /* BarChartViewController.swift in Sources */,
