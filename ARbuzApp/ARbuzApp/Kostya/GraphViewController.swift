@@ -13,9 +13,37 @@ final class GraphViewController: UIViewController {
 	private let network = Network()
 	private var sceneView = ARSCNView(frame: .zero)
 	private let configuration = ARWorldTrackingConfiguration()
+
+	private lazy var segmentedControl: UISegmentedControl = {
+		let segmentedControl = UISegmentedControl()
+		segmentedControl.insertSegment(withTitle: "Apple", at: 0, animated: false)
+		segmentedControl.insertSegment(withTitle: "Microsoft", at: 1, animated: false)
+		segmentedControl.insertSegment(withTitle: "AMD", at: 2, animated: false)
+		segmentedControl.insertSegment(withTitle: "Alibaba", at: 3, animated: false)
+		segmentedControl.backgroundColor = .lightGray
+		segmentedControl.addTarget(self, action: #selector(changeCompany), for: .valueChanged)
+		return segmentedControl
+	}()
+
+	@objc
+	private func changeCompany() {
+		switch segmentedControl.selectedSegmentIndex {
+			case 0: company = .Apple
+			case 1: company = .Microsoft
+			case 2: company = .AMD
+			case 3: company = .Alibaba
+			default: break
+		}
+		network.request(for: company ?? .Apple) { [weak self] response in
+			self?.graph?.updateWithModels(points: response.results, name: response.ticker)
+		}
+	}
+
+	private var company: Company?
+
 	private var graph: GraphNode? {
 		didSet {
-			network.request(for: .Apple) { [weak self] response in
+			network.request(for: company ?? .Apple) { [weak self] response in
 				self?.graph?.updateWithModels(points: response.results, name: response.ticker)
 			}
 		}
@@ -46,7 +74,9 @@ final class GraphViewController: UIViewController {
 		let scene = SCNScene()
 		sceneView.scene = scene
 		view.addSubview(sceneView)
+		view.addSubview(segmentedControl)
 		sceneView.frame = view.bounds
+		segmentedControl.frame = CGRect(x: 10, y: 100, width: 350, height: 40)
 		sceneView.addSubview(clearButton)
 		clearButton.frame = CGRect(x: 16, y: UIScreen.main.bounds.height - 66, width: 48, height: 24)
 
