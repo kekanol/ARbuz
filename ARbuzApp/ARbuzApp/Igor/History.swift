@@ -13,12 +13,15 @@ final class History {
 
 	private var responseModel: ResponseModel?
 
-	private(set) var graphData: GraphData?
+	private(set) var graphData: [Result] = [] {
+		didSet {
+			graphDataDidUpdate()
+		}
+	}
 
 	func save(responseModel: ResponseModel) {
 		self.responseModel = responseModel
-		let middleValues = responseModel.results.map { ($0.l + $0.h)/2 }
-		graphData = GraphData(ticker: responseModel.ticker, values: middleValues)
+		graphData = responseModel.results
 		saveResponseModelEach5Seconds()
 	}
 
@@ -30,10 +33,19 @@ final class History {
 	@objc
 	private func timerInvoked() {
 		if let lowPrice = responseModel?.results.min(by: { $0.l <= $1.l })?.l,
-		   let highPrice = responseModel?.results.min(by: { $0.h >= $1.h })?.h {
+		   let highPrice = responseModel?.results.min(by: { $0.h >= $1.h })?.h,
+		   let last = graphData.last
+		{
 			let randomDouble = Double.random(in: lowPrice...highPrice)
-			graphData?.values.append(randomDouble)
+			let preLast = graphData[graphData.count - 2]
+			let time = last.t - preLast.t + last.t
+
+			let result = Result(v: preLast.v, vw: preLast.vw, o: last.c, c: randomDouble, h: last.c, l: last.c, t: time, n: last.n)
+			graphData.append(result)
 		}
 	}
 
+	private func graphDataDidUpdate() {
+		NotificationCenter.default.post(name: NSNotification.Name("graphDataDidUpdate"), object: nil)
+	}
 }

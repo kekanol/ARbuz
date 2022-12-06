@@ -16,7 +16,7 @@ final class GraphViewController: UIViewController {
 	private var graph: GraphNode? {
 		didSet {
 			network.request(for: .Apple) { [weak self] response in
-				self?.graph?.updateWithModels(points: response.results)
+				self?.graph?.updateWithModels(points: response.results, name: response.ticker)
 			}
 		}
 	}
@@ -40,6 +40,7 @@ final class GraphViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		NotificationCenter.default.addObserver(self, selector: #selector(updateGraphData), name: Notification.Name("graphDataDidUpdate"), object: nil)
 		sceneView.delegate = self
 		configuration.planeDetection = [.vertical]
 		let scene = SCNScene()
@@ -61,6 +62,10 @@ final class GraphViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		sceneView.session.pause()
+	}
+
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 }
 
@@ -94,5 +99,9 @@ private extension GraphViewController {
 
 	@objc func freeze() {
 		graph?.fixedSize = true
+	}
+
+	@objc func updateGraphData() {
+		graph?.updateWithModels(points: History.shared.graphData, name: nil)
 	}
 }

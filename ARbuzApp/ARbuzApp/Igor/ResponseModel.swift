@@ -29,13 +29,3 @@ struct Result: Codable {
 	let l: Double
 	let t, n: Int
 }
-
-
-struct GraphData {
-
-	/// Название компании
-	let ticker: String
-
-	/// Средние цены на акции в выбранном промежутке
-	var values: [Double]
-}

@@ -27,7 +27,7 @@ final class DataProvider {
 	
 	private let lock = NSLock()
 
-	private let companies: [Company] = [.Apple, .Microsoft]
+	private let companies: [Company] = [.Apple]
 	
 	private let daysForFetching = ["2021-01-22",
 								   "2021-02-22",
@@ -54,8 +54,8 @@ extension DataProvider: DataProviderProtocol {
 		companies.forEach { company in
 			group.enter()
 
-			network.request(for: company, dayFrom:
-								randomDay,
+			network.request(for: company,
+							dayFrom: randomDay,
 							dayTo: randomDay) { [weak self] model in
 				guard let self = self else { return }
 
@@ -84,7 +84,7 @@ private extension DataProvider {
 		companies.forEach { company in
 			guard
 				let responce = companyResponces[company],
-				let lastResult = responce.results.last else { return }
+				let lastResult = responce.results.randomElement() else { return }
 
 			let money = value(for: lastResult.c, below: max)
 			let bar = ChartBar(name: company.name,
@@ -96,7 +96,7 @@ private extension DataProvider {
 		let storage = ChartData(bars: bars)
 		completion?(storage)
 
-		timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: timerTick)
+		Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: timerTick)
 	}
 
 	func timerTick(_ timer: Timer) {

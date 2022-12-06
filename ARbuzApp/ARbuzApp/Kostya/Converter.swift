@@ -36,12 +36,12 @@ final class Converter {
 		guard !models.isEmpty else { return }
 		maxX = models[0].t
 		minX = models[0].t
-		minY = models[0].l * 0.9
-		maxY = models[0].h * 1.1
+		minY = models[0].c * 0.9
+		maxY = models[0].c * 1.1
 
 		models.forEach { model in
-			if model.h * 1.1 > maxY { maxY = model.h / 0.9 }
-			if model.l * 0.9 < minY { minY = model.l * 0.9 }
+			if model.h * 1.1 > maxY { maxY = model.c / 0.9 }
+			if model.l * 0.9 < minY { minY = model.c * 0.9 }
 			if model.t > maxX { maxX = model.t }
 			if model.t < minX { minX = model.t }
 		}
