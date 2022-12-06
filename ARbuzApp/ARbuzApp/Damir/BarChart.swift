@@ -11,10 +11,10 @@ import ARKit
 final class BarChart: SCNNode {
 
 	private enum Constant {
-		static let width: CGFloat = 0.5 * Constant.scaleFactor
-		static let distanceBetweenBars: Float = Float(Constant.width / 2 * Constant.scaleFactor)
+		static let width: CGFloat = 0.5
+		static let distanceBetweenBars: Float = Float(Constant.width / 2)
 		static let chamferRadius: CGFloat = 0.01
-		static let scaleFactor: Double = 1
+		static let scaleFactor: Double = 2
 	}
 
 	private var chartData: ChartData
@@ -72,7 +72,7 @@ final class BarChart: SCNNode {
 
 //			let quaternion = simd_quatf(angle: GLKMathDegreesToRadians(-45), axis: simd_float3(1,0,0))
 //			textNode.simdOrientation = quaternion * textNode.simdOrientation
-			barNodes[index].addChildNode(textNode)
+			addChildNode(textNode)
 			valueTextNodes.append(textNode)
 		}
 	}
@@ -97,17 +97,17 @@ final class BarChart: SCNNode {
 	}
 
 	func createTextNode(with chartData: ChartData, index: Int) -> SCNNode {
-		let newText = SCNText(string: "\(chartData.bars[index].name)" , extrusionDepth: 0)
-		newText.font = UIFont (name: "Arial", size: 0.12)//.systemFont(ofSize: 0.05)
+		let newText = SCNText(string: "\(chartData.bars[index].name)" , extrusionDepth: 2)
 		newText.firstMaterial!.diffuse.contents = chartData.bars[index].color
 		newText.firstMaterial?.isDoubleSided = true
 
 		let planeNode = SCNNode(geometry: newText)
+		planeNode.scale = SCNVector3(x:0.01, y:0.01, z:0.01)
 		planeNode.name = "textNode"
 
 		let (minBound, maxBound) = newText.boundingBox
 		let xPivot = (maxBound.x - minBound.x)/2
-		let yPivot = (maxBound.y - minBound.y)/2
+		let yPivot = minBound.y
 		let zPivot = (maxBound.z - minBound.z)/2
 
 		planeNode.pivot = SCNMatrix4MakeTranslation(xPivot, yPivot, zPivot)
