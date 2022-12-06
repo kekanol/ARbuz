@@ -13,11 +13,7 @@ final class History {
 
 	private var responseModel: ResponseModel?
 
-	private(set) var graphData: [Result] = [] {
-		didSet {
-			graphDataDidUpdate()
-		}
-	}
+	private(set) var graphData: [Result] = []
 
 	func save(responseModel: ResponseModel) {
 		self.responseModel = responseModel
@@ -42,6 +38,8 @@ final class History {
 
 			let result = Result(v: preLast.v, vw: preLast.vw, o: last.c, c: randomDouble, h: last.c, l: last.c, t: time, n: last.n)
 			graphData.append(result)
+			graphData.remove(at: 0)
+			graphDataDidUpdate()
 		}
 	}
 

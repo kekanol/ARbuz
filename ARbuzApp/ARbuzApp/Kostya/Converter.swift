@@ -33,10 +33,10 @@ final class Converter {
 
 	private func update() {
 		guard !models.isEmpty else { return }
-		maxX = models[0].t
-		minX = models[0].t
-		minY = models[0].c * 0.9
-		maxY = models[0].c * 1.1
+		maxX = models.last!.t
+		minX = models.last!.t
+		minY = models.last!.c * 0.9
+		maxY = models.last!.c * 1.1
 
 		models.forEach { model in
 			if model.h * 1.1 > maxY { maxY = model.c / 0.9 }
