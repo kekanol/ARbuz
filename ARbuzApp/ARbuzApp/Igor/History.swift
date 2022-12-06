@@ -28,11 +28,9 @@ final class History {
 
 	@objc
 	private func timerInvoked() {
-		if let lowPrice = responseModel?.results.min(by: { $0.l <= $1.l })?.l,
-		   let highPrice = responseModel?.results.min(by: { $0.h >= $1.h })?.h,
-		   let last = graphData.last
-		{
-			let randomDouble = Double.random(in: lowPrice...highPrice)
+		if let last = graphData.last {
+			let random = Bool.random()
+			let randomDouble = random ? last.c * 1.01 : last.c * 0.99
 			let preLast = graphData[graphData.count - 2]
 			let time = last.t - preLast.t + last.t
 

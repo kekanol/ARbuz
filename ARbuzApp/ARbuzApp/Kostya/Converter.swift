@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 final class Converter {
 	var viewSize: CGSize = .zero {
@@ -25,11 +26,11 @@ final class Converter {
 	}
 	private(set) var points: [CGPoint] = []
 
-	private var minY: Double = 0
-	private var maxY: Double = 0
+	private(set) var minY: Double = 0
+	private(set) var maxY: Double = 0
 
-	private var minX: Int = 0
-	private var maxX: Int = 0
+	private(set) var minX: Int = 0
+	private(set) var maxX: Int = 0
 
 	private func update() {
 		guard !models.isEmpty else { return }
@@ -63,14 +64,26 @@ final class Converter {
 		self.points = points
 	}
 
-	private func yPos(for model: Result, isTop: Bool) -> CGFloat {
+	func yPos(for model: Result, isTop: Bool) -> CGFloat {
 		let k = CGFloat(model.c - minY) / CGFloat(maxY - minY)
 		let y = viewSize.height * k
-		return y + (isTop ? CGFloat(0.05) : CGFloat(-0.05)) - viewSize.height / 2
+		return y - viewSize.height / 2 + (isTop ? CGFloat(0.05) : CGFloat(-0.05))
 	}
 
-	private func xPos(for model: Result) -> CGFloat {
+	func xPos(for model: Result) -> CGFloat {
 		let k = CGFloat(model.t - minX) / CGFloat(maxX - minX)
+		let x = viewSize.width * k - viewSize.width / 2
+		return x
+	}
+
+	func yPos(for amount: Double) -> CGFloat {
+		let k = CGFloat(amount - minY) / CGFloat(maxY - minY)
+		let y = viewSize.height * k
+		return y - viewSize.height / 2
+	}
+
+	func xPos(for timeStamp: Int) -> CGFloat {
+		let k = CGFloat(timeStamp - minX) / CGFloat(maxX - minX)
 		let x = viewSize.width * k - viewSize.width / 2
 		return x
 	}
