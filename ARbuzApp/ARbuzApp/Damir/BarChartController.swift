@@ -54,7 +54,6 @@ final class BarChartController: UIViewController {
 	private var planes = [Plane]()
 
 	private var chartData: ChartData?
-	private var floorIsActive: Bool = false
 
 	init(provider: DataProviderProtocol) {
 		self.provider = provider
