@@ -40,6 +40,11 @@ private extension Network {
 						completion(response)
 						History.shared.save(responseModel: response)
 					}
+				} else {
+					guard let path = Bundle.main.path(forResource: "AAPL", ofType: "json"),
+						  let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
+						  let result = try? JSONDecoder().decode(ResponseModel.self, from: jsonData) else { return }
+					completion(result)
 				}
 			}
 			task.resume()
