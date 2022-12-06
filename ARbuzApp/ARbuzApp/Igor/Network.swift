@@ -39,7 +39,7 @@ private extension Network {
 
 	func urlString(for ticket: String) -> String {
 		let base = "https://api.polygon.io/v2/aggs/ticker/"
-		let suffix = "/range/1/day/2021-03-12/2021-07-22?adjusted=true&sort=asc&limit=120&apiKey=4iYnPv1XjlUAHmxyFTM7L0KJCZoEqJhz"
+		let suffix = "/range/1/day/2021-07-22/2021-07-22?adjusted=true&sort=asc&limit=120&apiKey=4iYnPv1XjlUAHmxyFTM7L0KJCZoEqJhz"
 		return base + ticket + suffix
 	}
 }

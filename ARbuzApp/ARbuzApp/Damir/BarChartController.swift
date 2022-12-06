@@ -66,9 +66,9 @@ private extension BarChartController {
 		// Вектор к поверхности, если он пересекает какую-то поверхность, то попадает в результирующее значение
 		guard let hitTestResult = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent).first else { return }
 
-		let chartData = ChartData(points: [ChartPoint(name: "APPL", value: 0.7, money: "100", color: .black),
-										   ChartPoint(name: "SBER", value: 1, money: "10000000", color: .green),
-										   ChartPoint(name: "AMAZ", value: 0.1, money: "1", color: .blue)])
+		let chartData = ChartData(bars: [ChartBar(name: "APPL", value: 0.7, money: "100", color: .black),
+										   ChartBar(name: "SBER", value: 1, money: "10000000", color: .green),
+										   ChartBar(name: "AMAZ", value: 0.1, money: "1", color: .blue)])
 
 		createChart(chartData: chartData, hitTestResult: hitTestResult)
 	}
@@ -121,9 +121,10 @@ private extension BarChartController {
 	}
 
 	func createChart(chartData: ChartData, hitTestResult: ARHitTestResult) {
-		let builder = BarBuilder()
-		let barNode = builder.build(with: chartData, at: hitTestResult)
-		sceneView.scene.rootNode.addChildNode(barNode)
+		let builder = BarBuilder(chartData: chartData, hitTestResult: hitTestResult)
+		builder
+			.setupBars()
+			.build(at: sceneView.scene)
 	}
 
 }

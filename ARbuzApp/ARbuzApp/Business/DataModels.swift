@@ -38,11 +38,11 @@ enum Company: String {
 
 /// Данные для графика
 struct ChartData {
-	var points: [ChartPoint]
+	var bars: [ChartBar]
 }
 
-/// Точка на графике
-struct ChartPoint {
+/// Полоска на графике
+struct ChartBar {
 	let name: String
 
 	/// 0 - 1
