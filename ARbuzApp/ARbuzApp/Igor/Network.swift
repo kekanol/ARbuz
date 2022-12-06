@@ -11,16 +11,25 @@ import Foundation
 struct Network {
 
 	func request(for company: Company,
+				 dayFrom: String = "2021-03-22",
+				 dayTo: String = "2021-07-22",
 				 completion: @escaping (ResponseModel) -> Void) {
-		request(for: company.ticket, completion: completion)
+		request(ticket: company.ticket,
+				dayFrom: dayFrom,
+				dayTo: dayTo,
+				completion: completion)
 	}
 }
 
 private extension Network {
 
-	func request(for ticket: String,
+	func request(ticket: String,
+				 dayFrom: String = "2021-03-22",
+				 dayTo: String = "2021-07-22",
 				 completion: @escaping (ResponseModel) -> Void) {
-		guard let url = URL(string: urlString(for: ticket)) else { return }
+		guard let url = URL(string: urlString(for: ticket,
+											  dayFrom: dayFrom,
+											  dayTo: dayTo)) else { return }
 		DispatchQueue.global(qos: .userInitiated).async {
 			let session = URLSession(configuration: .default)
 			let request = URLRequest(url: url)
@@ -31,15 +40,22 @@ private extension Network {
 						completion(response)
 						History.shared.save(responseModel: response)
 					}
+				} else {
+					guard let path = Bundle.main.path(forResource: "AAPL", ofType: "json"),
+						  let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
+						  let result = try? JSONDecoder().decode(ResponseModel.self, from: jsonData) else { return }
+					completion(result)
 				}
 			}
 			task.resume()
 		}
 	}
 
-	func urlString(for ticket: String) -> String {
+	func urlString(for ticket: String,
+				   dayFrom: String,
+				   dayTo: String) -> String {
 		let base = "https://api.polygon.io/v2/aggs/ticker/"
-		let suffix = "/range/1/day/2021-07-22/2021-07-22?adjusted=true&sort=asc&limit=120&apiKey=4iYnPv1XjlUAHmxyFTM7L0KJCZoEqJhz"
+		let suffix = "/range/1/day/\(dayFrom)/\(dayTo)?adjusted=true&sort=asc&limit=120&apiKey=4iYnPv1XjlUAHmxyFTM7L0KJCZoEqJhz"
 		return base + ticket + suffix
 	}
 }

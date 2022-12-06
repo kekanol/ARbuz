@@ -10,13 +10,14 @@ import ARKit
 
 final class GraphNode: SCNNode {
 
-	private let converter = Converter()
 	var fixedSize = false
-	var graphLineNode: SCNNode?
-	var graphLineShape: SCNShape?
 
-	var anchor: ARPlaneAnchor
-	var planeGeometry: SCNPlane!
+	private let converter = Converter()
+	private var graphLineNode: SCNNode?
+	private var graphLineShape: SCNShape?
+	private var anchor: ARPlaneAnchor
+	private var planeGeometry: SCNPlane!
+	private var textNode: SCNNode?
 
 	init(anchor: ARPlaneAnchor) {
 		self.anchor = anchor
@@ -26,25 +27,6 @@ final class GraphNode: SCNNode {
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-
-	private func configure() {
-		opacity = 1
-
-		planeGeometry = SCNPlane(
-			width: 2.5,
-			height: 2
-		)
-
-		let material = SCNMaterial()
-		planeGeometry.materials = [material]
-		material.diffuse.contents = UIColor.white
-
-		geometry = planeGeometry
-
-		position = SCNVector3(anchor.center.x, anchor.center.y, 0)
-		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
-		updateGraphLine()
 	}
 
 	// Для обновления поверхности при вращении устройства
@@ -58,7 +40,10 @@ final class GraphNode: SCNNode {
 		updateGraphLine()
 	}
 
-	func updateWithModels(points: [Result]) {
+	func updateWithModels(points: [Result], name: String?) {
+		if let name = name {
+			drawTextNode(name: name)
+		}
 		converter.models = points
 		updateGraphLine()
 	}
@@ -83,5 +68,45 @@ final class GraphNode: SCNNode {
 		graphLineNode!.position.z += 0.05
 
 		addChildNode(graphLineNode!)
+	}
+}
+
+private extension GraphNode {
+	func configure() {
+		opacity = 1
+
+		planeGeometry = SCNPlane(
+			width: 3,
+			height: 2
+		)
+
+		let material = SCNMaterial()
+		planeGeometry.materials = [material]
+		material.diffuse.contents = UIColor.white
+
+		geometry = planeGeometry
+
+		position = SCNVector3(anchor.center.x, anchor.center.y, 0)
+		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
+		updateGraphLine()
+	}
+
+	func drawTextNode(name: String) {
+		let text = SCNText(string: name, extrusionDepth: 2)
+		let material = SCNMaterial()
+		material.diffuse.contents = UIColor.magenta
+		text.materials = [material]
+		guard textNode == nil else {
+			textNode?.geometry = text
+			return
+		}
+		let node = SCNNode()
+		node.scale = SCNVector3(x:0.01, y:0.01, z:0.01)
+		node.position.z += 0.05
+		node.position.x = position.x
+		node.position.y = position.y + Float(planeGeometry.width / 3)
+		node.geometry = text
+		textNode = node
+		addChildNode(node)
 	}
 }
