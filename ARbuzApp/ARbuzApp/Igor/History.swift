@@ -13,11 +13,7 @@ final class History {
 
 	private var responseModel: ResponseModel?
 
-	private(set) var graphData: [Result] = [] {
-		didSet {
-			graphDataDidUpdate()
-		}
-	}
+	private(set) var graphData: [Result] = []
 
 	func save(responseModel: ResponseModel) {
 		self.responseModel = responseModel
@@ -32,16 +28,16 @@ final class History {
 
 	@objc
 	private func timerInvoked() {
-		if let lowPrice = responseModel?.results.min(by: { $0.l <= $1.l })?.l,
-		   let highPrice = responseModel?.results.min(by: { $0.h >= $1.h })?.h,
-		   let last = graphData.last
-		{
-			let randomDouble = Double.random(in: lowPrice...highPrice)
+		if let last = graphData.last {
+			let random = Bool.random()
+			let randomDouble = random ? last.c * 1.01 : last.c * 0.99
 			let preLast = graphData[graphData.count - 2]
 			let time = last.t - preLast.t + last.t
 
 			let result = Result(v: preLast.v, vw: preLast.vw, o: last.c, c: randomDouble, h: last.c, l: last.c, t: time, n: last.n)
 			graphData.append(result)
+			graphData.remove(at: 0)
+			graphDataDidUpdate()
 		}
 	}
 
