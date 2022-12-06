@@ -80,14 +80,16 @@ private extension DataProvider {
 
 	func updateData() {
 		var bars = [ChartBar]()
+		let max = companyResponces.values.map ({ $0.results[0].c }).max() ?? 0
 		companies.forEach { company in
 			guard
 				let responce = companyResponces[company],
 				let lastResult = responce.results.last else { return }
-			
+
+			let money = value(for: lastResult.c, below: max)
 			let bar = ChartBar(name: company.name,
 							   value: Double.random(in: 0...1),
-							   money: "$\(Int(lastResult.l))",
+							   money: "$\(money))",
 							   color: company.color)
 			bars.append(bar)
 		}
@@ -101,5 +103,10 @@ private extension DataProvider {
 		if let completion = completion {
 			fetchData(completion: completion)
 		}
+	}
+
+	func value(for number: Double, below max: Double) -> Double {
+		let result = number / max
+		return result
 	}
 }
