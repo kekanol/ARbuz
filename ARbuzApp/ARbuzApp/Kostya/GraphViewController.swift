@@ -15,7 +15,7 @@ final class GraphViewController: UIViewController {
 	private let configuration = ARWorldTrackingConfiguration()
 	private var graph: GraphNode? {
 		didSet {
-			network.requestModel { [weak self] response in
+			network.request(for: .Apple) { [weak self] response in
 				self?.graph?.updateWithModels(points: response.results)
 			}
 		}

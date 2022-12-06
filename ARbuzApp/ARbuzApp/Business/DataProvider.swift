@@ -101,17 +101,5 @@ private extension DataProvider {
 		if let completion = completion {
 			fetchData(completion: completion)
 		}
-
-//		let names = ["Apple", "Microsoft", "Netflix"]
-//		let colors = [UIColor.red, UIColor.blue, UIColor.yellow]
-//		let bars = names.map { name in
-//			ChartBar(name: name,
-//					 value: Double.random(in: 0...1),
-//					 money: "$ 100 500",
-//					 color: colors.randomElement() ?? UIColor.lightGray)
-//		}
-//		let storage = ChartData(bars: bars)
-//		completion?(storage)
-		
 	}
 }
