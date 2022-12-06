@@ -11,19 +11,26 @@ import ARKit
 final class BarChart: SCNNode {
 
 	private enum Constant {
-		static let width: CGFloat = 0.3
-		static let distanceBetweenBars: Float = 0.3 / 2
-		static let chamferRadius: CGFloat = 0.1
-		static let scaleFactor: Double = 1
+		static let width: CGFloat = 0.3 * Constant.scaleFactor
+		static let distanceBetweenBars: Float = Float(0.3 / 2 * Constant.scaleFactor)
+		static let chamferRadius: CGFloat = 0.005
+		static let scaleFactor: Double = 0.4
 	}
 
 	private var chartData: ChartData
 	private var hitTestResult: ARHitTestResult
 	private var barGeometry: SCNPlane?
 	private var bars: [SCNNode] = []
+	private var floorNode: SCNNode?
 
 	private var anchor: ARPlaneAnchor {
 		hitTestResult.anchor as! ARPlaneAnchor
+	}
+
+	private var hitPosition: SCNVector3 {
+		SCNVector3(hitTestResult.worldTransform.columns.3.x,
+				   hitTestResult.worldTransform.columns.3.y + 0.1,
+				   hitTestResult.worldTransform.columns.3.z)
 	}
 
 	init(hitTestResult: ARHitTestResult, chartData: ChartData) {
@@ -43,26 +50,19 @@ final class BarChart: SCNNode {
 		barGeometry = SCNPlane(width: CGFloat(anchor.extent.x),
 							   height: CGFloat(anchor.extent.z))
 
-		let material = SCNMaterial()
-		material.diffuse.contents = UIColor.gray
-
-		barGeometry!.materials = [material]
-
-		geometry = barGeometry
-		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
+//		geometry = barGeometry
+		position = hitPosition
 
 		// Для отрисовки в горизонтали
 //		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
 
 		setupBars()
-		addFloor()
 	}
 
-	private func setupBars(scaleFactor: Double = 1) {
-
+	private func setupBars() {
 		for (index, point) in chartData.bars.enumerated() {
 			let box = SCNBox(width: Constant.width,
-							 height: point.value,
+							 height: point.value * Constant.scaleFactor,
 							 length: Constant.width,
 							 chamferRadius: Constant.chamferRadius)
 			box.firstMaterial?.diffuse.contents = point.color
@@ -78,7 +78,7 @@ final class BarChart: SCNNode {
 		}
 	}
 
-	private func addFloor() {
+	func addFloor() {
 		let floor = SCNFloor()
 		floor.reflectivity = 0.5
 
@@ -94,7 +94,13 @@ final class BarChart: SCNNode {
 		floorNode.position = SCNVector3(x: 0, y: -0.1, z: 0)
 		floorNode.geometry?.materials = [material]
 
+		self.floorNode = floorNode
 		addChildNode(floorNode)
+	}
+
+	func removeFloor() {
+		floorNode?.removeFromParentNode()
+		floorNode = nil
 	}
 
 //	/// Для обновления поверхности при вращении устройства
@@ -118,14 +124,14 @@ final class BarChart: SCNNode {
 
 	/// Обновить данные
 	/// - Parameter chartData: данные графика
-	func update(chartData: ChartData, parentNode: SCNNode) {
+	func update(chartData: ChartData) {
 //		bars.forEach { $0.removeFromParentNode() }
 //		bars.removeAll()
 //		self.chartData = chartData
 //		configure(parentNode: parentNode)
 		for index in 0 ..< bars.count {
 			let targetGeometry = SCNBox(width: Constant.width,
-										height: chartData.bars[index].value,
+										height: chartData.bars[index].value * Constant.scaleFactor,
 										length: Constant.width,
 										chamferRadius: Constant.chamferRadius)
 			let morpher = SCNMorpher()

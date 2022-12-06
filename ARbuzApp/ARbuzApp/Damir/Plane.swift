@@ -24,31 +24,31 @@ class Plane: SCNNode {
 	}
 
 	private func configure() {
-//		opacity = 0.9
-//
-//		planeGeometry = SCNPlane(
-//			width: CGFloat(anchor.extent.x),
-//			height: CGFloat(anchor.extent.z)
-//		)
-//
-//		let material = SCNMaterial()
-//		material.diffuse.contents = UIColor.blue
-//
-//		planeGeometry.materials = [material]
-//
-//		geometry = planeGeometry
-//
-//		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
-//
-//		// Для отрисовки в горизонтали
-//		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
+		opacity = 0.9
+
+		planeGeometry = SCNPlane(
+			width: CGFloat(anchor.extent.x),
+			height: CGFloat(anchor.extent.z)
+		)
+
+		let material = SCNMaterial()
+		material.diffuse.contents = UIColor.lightGray
+
+		planeGeometry.materials = [material]
+
+		geometry = planeGeometry
+
+		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
+
+		// Для отрисовки в горизонтали
+		transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2), 1.0, 0.0, 0.0)
 	}
 
 	// Для обновления поверхности при вращении устройства
 	func update(anchor: ARPlaneAnchor) {
-//		planeGeometry.width = CGFloat(anchor.extent.x)
-//		planeGeometry.height = CGFloat(anchor.extent.z)
-//		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
+		planeGeometry.width = CGFloat(anchor.extent.x)
+		planeGeometry.height = CGFloat(anchor.extent.z)
+		position = SCNVector3(anchor.center.x, 0, anchor.center.z)
 	}
 
 }
